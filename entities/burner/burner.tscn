@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bspt8qg2xp2i2"]
+
+[ext_resource type="Script" uid="uid://884ldk4r00gb" path="res://entities/burner/burner.gd" id="1_02p6g"]
+[ext_resource type="Texture2D" uid="uid://jiuno5jwth2m" path="res://icon.svg" id="2_jv2fh"]
+[ext_resource type="Script" uid="uid://v4vmr2dx0rgi" path="res://entities/hit_box.gd" id="3_jv2fh"]
+
+[sub_resource type="Gradient" id="Gradient_j37k6"]
+colors = PackedColorArray(0.44705883, 0.68235296, 1, 0.52156866, 1, 1, 0, 0.44313726)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a8v1b"]
+gradient = SubResource("Gradient_j37k6")
+width = 10
+height = 10
+fill_from = Vector2(0.49287748, 1)
+fill_to = Vector2(0.4871795, 0.7891738)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j37k6"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(160, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 23.964
+initial_velocity_max = 65.659996
+angular_velocity_min = -58.180016
+angular_velocity_max = 50.909985
+gravity = Vector3(0, 0, 0)
+color = Color(1, 1, 1, 0.5019608)
+turbulence_enabled = true
+turbulence_noise_strength = 1.45
+turbulence_noise_scale = 2.856
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j37k6"]
+size = Vector2(334.65, 47)
+
+[node name="Burner" type="Node2D" unique_id=830126126]
+script = ExtResource("1_02p6g")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=908204153]
+
+[node name="Icon" type="Sprite2D" parent="StaticBody2D" unique_id=1859789258]
+position = Vector2(1.9073486e-06, 13)
+scale = Vector2(2.7343752, 0.203125)
+texture = ExtResource("2_jv2fh")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=148328999]
+polygon = PackedVector2Array(151, 0, -151, 0, -176, 11, 176, 10)
+
+[node name="Fire" type="GPUParticles2D" parent="." unique_id=2146269638]
+unique_name_in_owner = true
+amount = 1000
+texture = SubResource("GradientTexture2D_a8v1b")
+process_material = SubResource("ParticleProcessMaterial_j37k6")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=585161396]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_jv2fh")
+
+[node name="HitShape" type="CollisionShape2D" parent="HitBox" unique_id=1949743398]
+position = Vector2(-1, -13.5)
+shape = SubResource("RectangleShape2D_j37k6")

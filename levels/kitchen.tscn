@@ -5,37 +5,23 @@
 [ext_resource type="PackedScene" uid="uid://v1jv1bd80ov8" path="res://entities/pepper/pepper.tscn" id="4_c5rd0"]
 [ext_resource type="Script" uid="uid://cdm1v53we7tcy" path="res://entities/pepper/pepper_mill.gd" id="5_yg3w2"]
 [ext_resource type="Script" uid="uid://b116xu2wb0hva" path="res://entities/bullet_spawner.gd" id="6_yg3w2"]
+[ext_resource type="PackedScene" uid="uid://bspt8qg2xp2i2" path="res://entities/burner/burner.tscn" id="7_j37k6"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="8_a8v1b"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rbc2m"]
-size = Vector2(870, 248)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8v1b"]
-size = Vector2(870, 248)
+size = Vector2(1936, 248)
 
 [node name="World" type="Node2D" unique_id=1677156133]
 
-[node name="Table" type="StaticBody2D" parent="." unique_id=2133133677]
-position = Vector2(545, 878)
-collision_layer = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Table" unique_id=1845670406]
-position = Vector2(1, 0)
-shape = SubResource("RectangleShape2D_rbc2m")
-
-[node name="Icon" type="Sprite2D" parent="Table" unique_id=1619837779]
-scale = Vector2(6.8203125, 1.9453125)
-texture = ExtResource("1_dsnqk")
-
 [node name="Table2" type="StaticBody2D" parent="." unique_id=881072840]
-position = Vector2(1296, 752)
+position = Vector2(959, 924)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Table2" unique_id=809793046]
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_a8v1b")
 
 [node name="Icon" type="Sprite2D" parent="Table2" unique_id=1815406039]
-scale = Vector2(6.8203125, 1.9453125)
+scale = Vector2(15.455829, 1.9453125)
 texture = ExtResource("1_dsnqk")
 
 [node name="Player" parent="." unique_id=1422934049 instance=ExtResource("2_8s7oc")]
@@ -86,3 +72,6 @@ spawn_container = NodePath("../..")
 bullet = ExtResource("4_c5rd0")
 spawn_points = [NodePath("../SpawnPoint5"), NodePath("../SpawnPoint4"), NodePath("../SpawnPoint3"), NodePath("../SpawnPoint2"), NodePath("../SpawnPoint")]
 metadata/_custom_type_script = "uid://b116xu2wb0hva"
+
+[node name="Burner" parent="." unique_id=830126126 instance=ExtResource("7_j37k6")]
+position = Vector2(368, 789)
