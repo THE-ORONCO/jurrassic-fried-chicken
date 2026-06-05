@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://bvns7kooakilb"]
+
+[ext_resource type="Texture2D" uid="uid://jiuno5jwth2m" path="res://icon.svg" id="1_dsnqk"]
+[ext_resource type="PackedScene" uid="uid://wfj7l6fjl41y" path="res://entities/player/player.tscn" id="2_8s7oc"]
+[ext_resource type="PackedScene" uid="uid://v1jv1bd80ov8" path="res://entities/pepper/pepper.tscn" id="4_c5rd0"]
+[ext_resource type="Script" uid="uid://cdm1v53we7tcy" path="res://entities/pepper/pepper_mill.gd" id="5_yg3w2"]
+[ext_resource type="Script" uid="uid://b116xu2wb0hva" path="res://entities/bullet_spawner.gd" id="6_yg3w2"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="8_a8v1b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rbc2m"]
+size = Vector2(870, 248)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8v1b"]
+size = Vector2(870, 248)
+
+[node name="World" type="Node2D" unique_id=1677156133]
+
+[node name="Table" type="StaticBody2D" parent="." unique_id=2133133677]
+position = Vector2(545, 878)
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table" unique_id=1845670406]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_rbc2m")
+
+[node name="Icon" type="Sprite2D" parent="Table" unique_id=1619837779]
+scale = Vector2(6.8203125, 1.9453125)
+texture = ExtResource("1_dsnqk")
+
+[node name="Table2" type="StaticBody2D" parent="." unique_id=881072840]
+position = Vector2(1296, 752)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table2" unique_id=809793046]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_a8v1b")
+
+[node name="Icon" type="Sprite2D" parent="Table2" unique_id=1815406039]
+scale = Vector2(6.8203125, 1.9453125)
+texture = ExtResource("1_dsnqk")
+
+[node name="Player" parent="." unique_id=1422934049 instance=ExtResource("2_8s7oc")]
+position = Vector2(653, 702)
+jump_vel = -600.0
+
+[node name="StateChartDebugger" parent="." unique_id=1408026270 instance=ExtResource("8_a8v1b")]
+offset_left = 18.0
+offset_top = 19.0
+offset_right = 489.0
+offset_bottom = 585.0
+initial_node_to_watch = NodePath("../Player/StateChart")
+
+[node name="Pepper" parent="." unique_id=203596650 instance=ExtResource("4_c5rd0")]
+position = Vector2(779, -20)
+
+[node name="PepperMill" type="Node2D" parent="." unique_id=1630805108]
+position = Vector2(1071, 19)
+script = ExtResource("5_yg3w2")
+
+[node name="Icon" type="Sprite2D" parent="PepperMill" unique_id=583183456]
+scale = Vector2(1, 3.46875)
+texture = ExtResource("1_dsnqk")
+
+[node name="SpawnPoint" type="Marker2D" parent="PepperMill" unique_id=22533863]
+position = Vector2(1, 223)
+
+[node name="SpawnPoint2" type="Marker2D" parent="PepperMill" unique_id=214142823]
+position = Vector2(23, 223)
+
+[node name="SpawnPoint3" type="Marker2D" parent="PepperMill" unique_id=1021081643]
+position = Vector2(44, 223)
+
+[node name="SpawnPoint4" type="Marker2D" parent="PepperMill" unique_id=506693603]
+position = Vector2(-21, 223)
+
+[node name="SpawnPoint5" type="Marker2D" parent="PepperMill" unique_id=620925808]
+position = Vector2(-42, 223)
+
+[node name="Timer" type="Timer" parent="PepperMill" unique_id=1671331967]
+unique_name_in_owner = true
+autostart = true
+
+[node name="BulletSpawner" type="Node" parent="PepperMill" unique_id=1048601324 node_paths=PackedStringArray("spawn_container", "spawn_points")]
+unique_name_in_owner = true
+script = ExtResource("6_yg3w2")
+spawn_container = NodePath("../..")
+bullet = ExtResource("4_c5rd0")
+spawn_points = [NodePath("../SpawnPoint5"), NodePath("../SpawnPoint4"), NodePath("../SpawnPoint3"), NodePath("../SpawnPoint2"), NodePath("../SpawnPoint")]
+metadata/_custom_type_script = "uid://b116xu2wb0hva"

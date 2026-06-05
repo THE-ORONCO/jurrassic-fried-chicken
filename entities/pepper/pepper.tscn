@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://v1jv1bd80ov8"]
+
+[ext_resource type="Script" uid="uid://dem8f81to6ma5" path="res://entities/pepper/pepper.gd" id="1_hma23"]
+[ext_resource type="Script" uid="uid://dsfutl0hddf6n" path="res://entities/bullet_mover.gd" id="2_vselg"]
+[ext_resource type="Texture2D" uid="uid://jiuno5jwth2m" path="res://icon.svg" id="3_bc415"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c5rd0"]
+radius = 5.0
+
+[node name="Pepper" type="Area2D" unique_id=203596650]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_hma23")
+
+[node name="BulletMover" type="Node" parent="." unique_id=224330464 node_paths=PackedStringArray("moved_entity")]
+script = ExtResource("2_vselg")
+moved_entity = NodePath("..")
+metadata/_custom_type_script = "uid://dsfutl0hddf6n"
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1387770657]
+scale = Vector2(0.0625, 0.0625)
+texture = ExtResource("3_bc415")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1426047486]
+shape = SubResource("CircleShape2D_c5rd0")
