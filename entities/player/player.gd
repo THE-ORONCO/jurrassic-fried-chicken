@@ -6,11 +6,15 @@ signal start_walk
 signal stop_walk
 
 const SPEED = 300.0
-@export var jump_vel = -400.0
+@export var jump_vel = -300.0
 @onready var state_chart: StateChart = %StateChart
 var _was_on_floor := false
 var _moving := false
 var _gravity_factor := 1.
+var _apply_gravity := true
+var _jump_vel_left := 0.
+var _jump_time := 0.
+var _jump_progress := 0.
 
 func _ready() -> void:
 	_was_on_floor = is_on_floor()
@@ -28,20 +32,11 @@ func _physics_process(delta: float) -> void:
 			_was_on_floor = true
 			landed_on_floor.emit()
 	else:
-		velocity += get_gravity() * delta * _gravity_factor
 		# if we just left the floor, notify the state chart
 		if _was_on_floor:
 			_was_on_floor = false
 			left_floor.emit()
 
-	# Handle jump.
-	#if Input.is_action_just_pressed("jump") and is_on_floor():
-		#velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-
-		
 	if velocity && !_moving:
 		_moving = true
 		start_walk.emit()
@@ -51,6 +46,11 @@ func _physics_process(delta: float) -> void:
 		
 
 	move_and_slide()
+
+func _apply_gravity_physics_process(delta: float) -> void:
+	if !is_on_floor():
+		velocity += get_gravity() * delta * _gravity_factor
+
 
 func move_horizontal(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
@@ -62,15 +62,33 @@ func move_horizontal(delta: float) -> void:
 ## Called in states that allow jumping, we process jumps only in these.
 func _on_jump_enabled_state_physics_processing(_delta:float) -> void:
 	if Input.is_action_just_pressed("jump"):
-		velocity.y = jump_vel
 		state_chart.send_event("jump")
 
 #region GROUND
 func _on_ground_state_entered() -> void:
 	velocity.y = 0
 
-func _on_ground_state_physics_processing(delta: float) -> void:
-	move_horizontal(delta)
+#endregion
+
+
+#region JUMPING
+func _on_jumping_state_entered() -> void:
+	#velocity.y = maxf(velocity.y, 0.) + jump_vel
+	_jump_vel_left = jump_vel
+	_jump_time = %OnTimeout.delay_seconds
+	_jump_progress = 0.
+
+func _on_jumping_state_physics_processing(delta: float) -> void:	
+	if Input.is_action_just_released("jump"):
+		state_chart.send_event("stop_jump")
+	_jump_vel_left = lerpf(jump_vel, 0., _jump_progress / _jump_time)
+	print("%f / %f : %f -> %f" % [_jump_progress, _jump_time, 1. - _jump_progress / _jump_time, _jump_vel_left])
+	_jump_progress += delta
+	velocity.y =  _jump_vel_left
+	
+
+func _on_jumping_state_exited() -> void:
+	velocity.y = 0.
 #endregion
 
 #region AIR

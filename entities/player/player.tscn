@@ -48,14 +48,26 @@ metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [node name="OnJump" type="Node" parent="StateChart/Root/Jumping/Ground" unique_id=1136042637]
 script = ExtResource("7_j3ovn")
-to = NodePath("../../Air/Airborne")
-event = &"left_floor"
+to = NodePath("../../Jumping")
+event = &"jump"
 delay_in_seconds = "0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [node name="Jumping" type="Node" parent="StateChart/Root/Jumping" unique_id=636757662]
 script = ExtResource("6_a1qjk")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="OnStopJump" type="Node" parent="StateChart/Root/Jumping/Jumping" unique_id=301251521]
+script = ExtResource("7_j3ovn")
+to = NodePath("../../Air/Airborne")
+event = &"stop_jump"
+delay_in_seconds = "0.0"
+
+[node name="OnTimeout" type="Node" parent="StateChart/Root/Jumping/Jumping" unique_id=209297173]
+unique_name_in_owner = true
+script = ExtResource("7_j3ovn")
+to = NodePath("../../Air")
+delay_in_seconds = ".6"
 
 [node name="Air" type="Node" parent="StateChart/Root/Jumping" unique_id=1104919112]
 script = ExtResource("5_7thud")
@@ -74,9 +86,9 @@ metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
 [node name="OnJump" type="Node" parent="StateChart/Root/Jumping/Air/Coyote" unique_id=1474987790]
 script = ExtResource("7_j3ovn")
-to = NodePath("../../Airborne")
+to = NodePath("../../../Jumping")
 event = &"jump"
-delay_in_seconds = "0.2"
+delay_in_seconds = "0"
 
 [node name="OnTimeout" type="Node" parent="StateChart/Root/Jumping/Air/Coyote" unique_id=822995872]
 script = ExtResource("7_j3ovn")
@@ -98,6 +110,42 @@ delay_in_seconds = "0.0"
 script = ExtResource("6_a1qjk")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
+[node name="Dashing" type="Node" parent="StateChart/Root" unique_id=953275072]
+script = ExtResource("5_7thud")
+initial_state = NodePath("CanDash")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="CanDash" type="Node" parent="StateChart/Root/Dashing" unique_id=1566775564]
+script = ExtResource("6_a1qjk")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToDashing" type="Node" parent="StateChart/Root/Dashing/CanDash" unique_id=408849665]
+script = ExtResource("7_j3ovn")
+to = NodePath("../../Dashing")
+event = &"dash"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Dashing" type="Node" parent="StateChart/Root/Dashing" unique_id=364249059]
+script = ExtResource("6_a1qjk")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToCooldown" type="Node" parent="StateChart/Root/Dashing/Dashing" unique_id=1993809653]
+script = ExtResource("7_j3ovn")
+to = NodePath("../../Cooldown")
+delay_in_seconds = ".5"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Cooldown" type="Node" parent="StateChart/Root/Dashing" unique_id=712686323]
+script = ExtResource("6_a1qjk")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToCanDash" type="Node" parent="StateChart/Root/Dashing/Cooldown" unique_id=642589655]
+script = ExtResource("7_j3ovn")
+to = NodePath("../../CanDash")
+delay_in_seconds = "0.2"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
 [node name="Move" type="Node" parent="StateChart/Root" unique_id=1934906254]
 script = ExtResource("5_7thud")
 initial_state = NodePath("Moving")
@@ -112,8 +160,17 @@ script = ExtResource("6_a1qjk")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Ground" to="." method="_on_jump_enabled_state_physics_processing"]
-[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Ground" to="." method="_on_ground_state_physics_processing"]
-[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air" to="." method="_on_air_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Ground" to="." method="move_horizontal"]
+[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Ground" to="." method="_apply_gravity_physics_process"]
+[connection signal="state_entered" from="StateChart/Root/Jumping/Jumping" to="." method="_on_jumping_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Jumping/Jumping" to="." method="_on_jumping_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Jumping" to="." method="move_horizontal"]
+[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Jumping" to="." method="_on_jumping_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Coyote" to="." method="_on_jump_enabled_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Coyote" to="." method="move_horizontal"]
+[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Coyote" to="." method="_apply_gravity_physics_process"]
+[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Airborne" to="." method="move_horizontal"]
+[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Airborne" to="." method="_apply_gravity_physics_process"]
 [connection signal="state_entered" from="StateChart/Root/Jumping/Air/Gliding" to="." method="_on_gliding_state_entered"]
 [connection signal="state_exited" from="StateChart/Root/Jumping/Air/Gliding" to="." method="_on_gliding_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Gliding" to="." method="move_horizontal"]

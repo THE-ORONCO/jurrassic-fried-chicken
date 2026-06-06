@@ -28,7 +28,6 @@ texture = ExtResource("1_dsnqk")
 
 [node name="Player" parent="." unique_id=1422934049 instance=ExtResource("2_8s7oc")]
 position = Vector2(653, 702)
-jump_vel = -600.0
 
 [node name="StateChartDebugger" parent="." unique_id=1408026270 instance=ExtResource("8_a8v1b")]
 offset_left = 18.0
@@ -77,3 +76,6 @@ metadata/_custom_type_script = "uid://b116xu2wb0hva"
 
 [node name="Burner" parent="." unique_id=830126126 instance=ExtResource("7_j37k6")]
 position = Vector2(237, 789)
+
+[node name="Burner2" parent="." unique_id=186028676 instance=ExtResource("7_j37k6")]
+position = Vector2(819, 743)
