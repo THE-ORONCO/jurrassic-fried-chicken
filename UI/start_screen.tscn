@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://ca4bxn66nqn3g"]
+
+[ext_resource type="Texture2D" uid="uid://dsajrq83k2pas" path="res://Assets/Cover.png" id="1_trqcy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trqcy"]
+atlas = ExtResource("1_trqcy")
+region = Rect2(0, 0, 1920, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwdus"]
+atlas = ExtResource("1_trqcy")
+region = Rect2(0, 1080, 1920, 1080)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k0fct"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trqcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwdus")
+}],
+"loop": true,
+"name": &"start",
+"speed": 3.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwdus"]
+bg_color = Color(0.09411765, 0.26666668, 0.76862746, 1)
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.3019608, 0.7372549, 0.99215686, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trqcy"]
+bg_color = Color(0.09411765, 0.26666668, 0.76862746, 1)
+border_width_left = 8
+border_width_top = 8
+border_color = Color(0.14509805, 0.08235294, 0.627451, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ihv8h"]
+bg_color = Color(0.16543114, 0.36026147, 0.8804419, 1)
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.3019608, 0.7372549, 0.99215686, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 16
+
+[node name="StartScreen" type="Node2D" unique_id=783915929]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=367739905]
+position = Vector2(960, 540)
+sprite_frames = SubResource("SpriteFrames_k0fct")
+animation = &"start"
+autoplay = "start"
+
+[node name="ButtonManager" type="Control" parent="." unique_id=752985689]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1918.0
+offset_bottom = 1081.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Start" type="Button" parent="ButtonManager" unique_id=222743491]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 313.0
+offset_top = 589.0
+offset_right = 633.0
+offset_bottom = 702.0
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_kwdus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_trqcy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ihv8h")
+text = "Start"
+
+[node name="Credits" type="Button" parent="ButtonManager" unique_id=1521026002]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 306.0
+offset_top = 740.0
+offset_right = 626.0
+offset_bottom = 853.0
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_kwdus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_trqcy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ihv8h")
+text = "Credits"
+
+[node name="Exit" type="Button" parent="ButtonManager" unique_id=2060081196]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 302.0
+offset_top = 896.0
+offset_right = 622.0
+offset_bottom = 1009.0
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_kwdus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_trqcy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ihv8h")
+text = "Quit"
