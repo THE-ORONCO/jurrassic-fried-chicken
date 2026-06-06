@@ -85,6 +85,7 @@ func _physics_process(delta: float) -> void:
 func _map_input_to_statechart() -> void:
 	state_chart.set_expression_property("jump_input", Input.is_action_pressed("jump"))
 	state_chart.set_expression_property("is_on_floor", is_on_floor())
+	state_chart.set_expression_property("is_moving", velocity.length_squared() > 0.001)
 
 func _apply_gravity_physics_process(delta: float) -> void:
 	if !is_on_floor():
@@ -188,9 +189,6 @@ func look_physics_process(delta: float) -> void:
 		if _last_move_event != "input_left":
 			_last_move_event = "input_left"
 			state_chart.send_event("input_left")
-	elif _last_move_event != "stop_move":
-		_last_move_event = "stop_move"
-		state_chart.send_event("stop_move")
 	
 func look_left() -> void:
 	animation.flip_h = true

@@ -493,9 +493,19 @@ script = ExtResource("8_26q78")
 expression = "is_on_floor == true"
 metadata/_custom_type_script = "uid://le5w1cm0ul8p"
 
+[sub_resource type="Resource" id="Resource_3wlsy"]
+script = ExtResource("8_26q78")
+expression = "is_moving == true && is_on_floor == true"
+metadata/_custom_type_script = "uid://le5w1cm0ul8p"
+
 [sub_resource type="Resource" id="Resource_yqrof"]
 script = ExtResource("8_26q78")
 expression = "is_on_floor == false"
+metadata/_custom_type_script = "uid://le5w1cm0ul8p"
+
+[sub_resource type="Resource" id="Resource_b2kln"]
+script = ExtResource("8_26q78")
+expression = "is_moving == false"
 metadata/_custom_type_script = "uid://le5w1cm0ul8p"
 
 [sub_resource type="Resource" id="Resource_j3ovn"]
@@ -518,7 +528,7 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_pacje")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.27789646
+frame_progress = 0.003149901
 offset = Vector2(0, -27)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=696751755]
@@ -733,17 +743,10 @@ metadata/_custom_type_script = "uid://jk2jm1g6q853"
 script = ExtResource("6_a1qjk")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="OnMoveLeft" type="Node" parent="StateChart/Root/Visuals/Animation/Idle" unique_id=1462959971]
+[node name="OnMoving" type="Node" parent="StateChart/Root/Visuals/Animation/Idle" unique_id=1462959971]
 script = ExtResource("7_j3ovn")
 to = NodePath("../../Walking")
-event = &"input_left"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
-
-[node name="OnMoveRight" type="Node" parent="StateChart/Root/Visuals/Animation/Idle" unique_id=548526788]
-script = ExtResource("7_j3ovn")
-to = NodePath("../../Walking")
-event = &"input_right"
+guard = SubResource("Resource_3wlsy")
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
@@ -761,7 +764,7 @@ metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 [node name="OnStopMove" type="Node" parent="StateChart/Root/Visuals/Animation/Walking" unique_id=1063275390]
 script = ExtResource("7_j3ovn")
 to = NodePath("../../Idle")
-event = &"stop_move"
+guard = SubResource("Resource_b2kln")
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
