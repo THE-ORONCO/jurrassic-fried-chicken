@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://nxyehjybuxxf"]
+
+[ext_resource type="Texture2D" uid="uid://o14plnl4sh7r" path="res://assets/Health.png" id="1_5pw3m"]
+[ext_resource type="Script" uid="uid://brlibcgk0oecn" path="res://progress_bar.gd" id="1_p6ot0"]
+
+[node name="PlayerHealth" type="Node2D" unique_id=1819893308]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1956949797]
+
+[node name="ProgressBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=723299674]
+offset_left = 27.0
+offset_top = 41.0
+offset_right = 436.0
+offset_bottom = 107.0
+max_value = 5.0
+value = 3.0
+texture_progress = ExtResource("1_5pw3m")
+script = ExtResource("1_p6ot0")
