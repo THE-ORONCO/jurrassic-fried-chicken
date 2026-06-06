@@ -15,15 +15,21 @@ signal stop_walk
 @export_range(1., 1000.) var terminal_velocity := 700.
 
 @export_category("dash")
-@export_range(1, 2000) var dash_speed := 400.
+@export_range(1, 2000) var dash_speed := 1000.
 @export_range(0.01, 1.) var dash_duration := .2:
 	set(val):
 		dash_duration = _update_chart_props(val)
 @export_range(0.1, 100.) var velocity_damping := 40.
 
 @onready var state_chart: StateChart = %StateChart
+@onready var animation: AnimatedSprite2D = %Animation
+
 @onready var _gravity_factor := normal_gravity_factor
 
+enum LookDir {
+	LEFT = -1,
+	RIGHT = 1,
+}
 
 var _velocity_remainder := Vector2.ZERO
 var _was_on_floor := false
@@ -34,6 +40,7 @@ var _jump_time := 0.
 var _jump_progress := 0.
 var _dash_dir := Vector2.UP
 var _dash_vel := Vector2.ZERO
+var _look := LookDir.RIGHT
 
 func _ready() -> void:
 	_was_on_floor = is_on_floor()
@@ -56,10 +63,12 @@ func _physics_process(delta: float) -> void:
 		# if we just touched the floor, notify the state chart
 		if not _was_on_floor:
 			landed_on_floor.emit()
+			_was_on_floor = true
 	else:
 		# if we just left the floor, notify the state chart
 		if _was_on_floor:
 			left_floor.emit()
+			_was_on_floor = false
 
 	if velocity && !_moving:
 		_moving = true
@@ -67,9 +76,8 @@ func _physics_process(delta: float) -> void:
 	elif !velocity && _moving:
 		_moving = false
 		stop_walk.emit()
-	
-	var vel_factor := clampf(velocity.length() / terminal_velocity, 0., 1.) 
-	velocity = velocity.limit_length(terminal_velocity) + _velocity_remainder
+	var additional_vel := _velocity_remainder.length() * velocity.normalized()
+	#velocity = velocity.limit_length(terminal_velocity) + additional_vel
 	_velocity_remainder = _velocity_remainder.move_toward(Vector2.ZERO, velocity_damping)
 	
 	move_and_slide()
@@ -77,6 +85,7 @@ func _physics_process(delta: float) -> void:
 func _map_input_to_statechart() -> void:
 	state_chart.set_expression_property("jump_input", Input.is_action_pressed("jump"))
 	state_chart.set_expression_property("is_on_floor", is_on_floor())
+	state_chart.set_expression_property("is_moving", velocity.length_squared() > 0.001)
 
 func _apply_gravity_physics_process(delta: float) -> void:
 	if !is_on_floor():
@@ -86,7 +95,12 @@ func _apply_gravity_physics_process(delta: float) -> void:
 func move_horizontal(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
-		velocity.x = direction * move_speed 
+		var goal_speed := direction * move_speed
+		var true_speed := velocity + _velocity_remainder
+		if signf(goal_speed) == signf(true_speed.x) && absf(goal_speed) > absf(true_speed.x):
+			velocity.x = goal_speed
+		else:
+			velocity.x = move_toward(velocity.x, goal_speed, 40)
 	else:
 		velocity.x = move_toward(velocity.x, 0, move_speed / 10)
 
@@ -160,4 +174,34 @@ func _on_dashing_state_physics_processing(delta: float) -> void:
 	if Input.is_action_just_released("dash"):
 		state_chart.send_event("dash_release")
 		
+#endregion
+
+
+#region LOOK
+var _last_move_event := ""
+func look_physics_process(delta: float) -> void:
+	var dir := Input.get_axis("move_left", "move_right")
+	if dir > 0.:
+		if  _last_move_event != "input_right":
+			_last_move_event = "input_right"
+			state_chart.send_event("input_right")
+	elif dir < 0.:
+		if _last_move_event != "input_left":
+			_last_move_event = "input_left"
+			state_chart.send_event("input_left")
+	
+func look_left() -> void:
+	animation.flip_h = true
+
+func look_right() -> void:
+	animation.flip_h = false
+
+#endregion
+
+#region ANIMATION
+
+func play_idle() -> void: animation.play("idle")
+func play_walk() -> void: animation.play("walk")
+func play_jump() -> void: animation.play("jump")
+
 #endregion
