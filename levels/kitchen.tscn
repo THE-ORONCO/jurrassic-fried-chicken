@@ -27,7 +27,7 @@ scale = Vector2(15.455829, 1.9453125)
 texture = ExtResource("1_dsnqk")
 
 [node name="Player" parent="." unique_id=1422934049 instance=ExtResource("2_8s7oc")]
-position = Vector2(653, 702)
+position = Vector2(654, 706)
 
 [node name="StateChartDebugger" parent="." unique_id=1408026270 instance=ExtResource("8_a8v1b")]
 offset_left = 18.0

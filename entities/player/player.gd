@@ -5,12 +5,18 @@ signal left_floor
 signal start_walk
 signal stop_walk
 
-const SPEED = 300.0
+@export_category("ground movement")
+@export var move_speed = 300.0
+
+@export_category("air movement")
 @export var jump_vel = -300.0
+@export var normal_gravity_factor := 1.
+@export var glide_gravity := 0.03
+
 @onready var state_chart: StateChart = %StateChart
+@onready var _gravity_factor := normal_gravity_factor
 var _was_on_floor := false
 var _moving := false
-var _gravity_factor := 1.
 var _apply_gravity := true
 var _jump_vel_left := 0.
 var _jump_time := 0.
@@ -25,7 +31,7 @@ func _ready() -> void:
 
 # TODO add a jumping state that increases upwards velocity while the player holds the jump button pressed $StateChart/Root/Jumping/Jumping
 func _physics_process(delta: float) -> void:
-	
+	_map_input_to_statechart()
 	if is_on_floor():
 		# if we just touched the floor, notify the state chart
 		if not _was_on_floor:
@@ -47,6 +53,10 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func _map_input_to_statechart() -> void:
+	state_chart.set_expression_property("jump_input", Input.is_action_pressed("jump"))
+
+
 func _apply_gravity_physics_process(delta: float) -> void:
 	if !is_on_floor():
 		velocity += get_gravity() * delta * _gravity_factor
@@ -55,9 +65,9 @@ func _apply_gravity_physics_process(delta: float) -> void:
 func move_horizontal(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = direction * move_speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED / 10)
+		velocity.x = move_toward(velocity.x, 0, move_speed / 10)
 
 ## Called in states that allow jumping, we process jumps only in these.
 func _on_jump_enabled_state_physics_processing(_delta:float) -> void:
@@ -73,7 +83,6 @@ func _on_ground_state_entered() -> void:
 
 #region JUMPING
 func _on_jumping_state_entered() -> void:
-	#velocity.y = maxf(velocity.y, 0.) + jump_vel
 	_jump_vel_left = jump_vel
 	_jump_time = %OnTimeout.delay_seconds
 	_jump_progress = 0.
@@ -82,7 +91,6 @@ func _on_jumping_state_physics_processing(delta: float) -> void:
 	if Input.is_action_just_released("jump"):
 		state_chart.send_event("stop_jump")
 	_jump_vel_left = lerpf(jump_vel, 0., _jump_progress / _jump_time)
-	print("%f / %f : %f -> %f" % [_jump_progress, _jump_time, 1. - _jump_progress / _jump_time, _jump_vel_left])
 	_jump_progress += delta
 	velocity.y =  _jump_vel_left
 	
@@ -103,10 +111,12 @@ func _on_air_state_physics_processing(delta: float) -> void:
 
 #region GLIDE
 func _on_gliding_state_entered() -> void:
-	_gravity_factor = 0.1
-
+	_gravity_factor = glide_gravity
 
 func _on_gliding_state_exited() -> void:
-	_gravity_factor = 1.
+	_gravity_factor = normal_gravity_factor
 
+func _on_gliding_state_physics_processing(delta: float) -> void:
+	if Input.is_action_just_released("jump"):
+		state_chart.send_event("stop_jump")
 #endregion
