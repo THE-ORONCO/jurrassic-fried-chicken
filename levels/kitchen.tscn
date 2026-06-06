@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bvns7kooakilb"]
 
+[ext_resource type="Script" uid="uid://ch2tgp1wjb8ta" path="res://levels/kitchen.gd" id="1_a8v1b"]
 [ext_resource type="Texture2D" uid="uid://jiuno5jwth2m" path="res://icon.svg" id="1_dsnqk"]
 [ext_resource type="PackedScene" uid="uid://wfj7l6fjl41y" path="res://entities/player/player.tscn" id="2_8s7oc"]
 [ext_resource type="PackedScene" uid="uid://v1jv1bd80ov8" path="res://entities/pepper/pepper.tscn" id="4_c5rd0"]
@@ -11,7 +12,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8v1b"]
 size = Vector2(1936, 248)
 
-[node name="World" type="Node2D" unique_id=1677156133]
+[node name="Kitchen" type="Node2D" unique_id=1677156133]
+script = ExtResource("1_a8v1b")
 
 [node name="Table2" type="StaticBody2D" parent="." unique_id=881072840]
 position = Vector2(959, 924)
@@ -74,4 +76,4 @@ spawn_points = [NodePath("../SpawnPoint5"), NodePath("../SpawnPoint4"), NodePath
 metadata/_custom_type_script = "uid://b116xu2wb0hva"
 
 [node name="Burner" parent="." unique_id=830126126 instance=ExtResource("7_j37k6")]
-position = Vector2(368, 789)
+position = Vector2(237, 789)
