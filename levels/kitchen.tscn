@@ -3,7 +3,11 @@
 [ext_resource type="Script" uid="uid://ch2tgp1wjb8ta" path="res://levels/kitchen.gd" id="1_a8v1b"]
 [ext_resource type="Texture2D" uid="uid://jiuno5jwth2m" path="res://icon.svg" id="1_dsnqk"]
 [ext_resource type="PackedScene" uid="uid://wfj7l6fjl41y" path="res://entities/player/player.tscn" id="2_8s7oc"]
+[ext_resource type="Texture2D" uid="uid://u7qq78m0t42q" path="res://assets/Chef_grab_weapon.png" id="2_vkim1"]
+[ext_resource type="Texture2D" uid="uid://p0tuibrji3wg" path="res://assets/Chef_attack.png" id="3_pnyds"]
+[ext_resource type="Texture2D" uid="uid://ci1pbbw8ki313" path="res://assets/Chef_scarf.png" id="4_bxbpt"]
 [ext_resource type="PackedScene" uid="uid://v1jv1bd80ov8" path="res://entities/pepper/pepper.tscn" id="4_c5rd0"]
+[ext_resource type="Texture2D" uid="uid://dioiodq5ymnca" path="res://assets/Chef_head.png" id="5_ct8bv"]
 [ext_resource type="Script" uid="uid://cdm1v53we7tcy" path="res://entities/pepper/pepper_mill.gd" id="5_yg3w2"]
 [ext_resource type="Script" uid="uid://b116xu2wb0hva" path="res://entities/bullet_spawner.gd" id="6_yg3w2"]
 [ext_resource type="PackedScene" uid="uid://bspt8qg2xp2i2" path="res://entities/burner/burner.tscn" id="7_j37k6"]
@@ -11,6 +15,25 @@
 [ext_resource type="Texture2D" uid="uid://wn2yxrsfl2s" path="res://assets/pepperhand_ugly.png" id="8_amo3k"]
 [ext_resource type="Script" uid="uid://cfqcbsmyjvmvm" path="res://entities/attacks/cleaver_attack.gd" id="10_48ea6"]
 [ext_resource type="Texture2D" uid="uid://f0bsq5q2yq2o" path="res://assets/cleaverhand_ugly_crooked_cleaver.png" id="10_vqm0c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xsnc5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vkim1")
+}],
+"loop": true,
+"name": &"grab_weapon",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_pnyds")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8v1b"]
 size = Vector2(1936, 248)
@@ -119,6 +142,19 @@ _data = {
 
 [node name="Kitchen" type="Node2D" unique_id=1677156133]
 script = ExtResource("1_a8v1b")
+
+[node name="Chef" type="Node2D" parent="." unique_id=772427980]
+position = Vector2(925, 503)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chef" unique_id=1108160508]
+sprite_frames = SubResource("SpriteFrames_xsnc5")
+animation = &"grab_weapon"
+
+[node name="ChefScarf" type="Sprite2D" parent="Chef" unique_id=1365218679]
+texture = ExtResource("4_bxbpt")
+
+[node name="ChefHead" type="Sprite2D" parent="Chef" unique_id=500472237]
+texture = ExtResource("5_ct8bv")
 
 [node name="Table2" type="StaticBody2D" parent="." unique_id=881072840]
 position = Vector2(959, 924)
