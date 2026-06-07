@@ -66,7 +66,8 @@ script = ExtResource("1_w024j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=105149760]
 sprite_frames = SubResource("SpriteFrames_qpj51")
 autoplay = "default"
-frame_progress = 0.72889555
+frame = 1
+frame_progress = 0.8943402
 offset = Vector2(960, 540)
 
 [node name="Control" type="Control" parent="." unique_id=1707793802]
@@ -77,22 +78,22 @@ offset_bottom = 40.0
 
 [node name="Start" type="Button" parent="Control" unique_id=619002959]
 layout_mode = 0
-offset_left = 672.0
+offset_left = 529.0
 offset_top = 904.0
-offset_right = 863.0
+offset_right = 950.0
 offset_bottom = 1005.0
 theme_override_fonts/font = ExtResource("2_7c84e")
 theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxFlat_w024j")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_qpj51")
 theme_override_styles/hover = SubResource("StyleBoxFlat_oqmmh")
-text = "Start"
+text = "Back to Start"
 
 [node name="Exit" type="Button" parent="Control" unique_id=939442506]
 layout_mode = 0
-offset_left = 975.0
+offset_left = 1042.0
 offset_top = 905.0
-offset_right = 1168.0
+offset_right = 1235.0
 offset_bottom = 1006.0
 theme_override_fonts/font = ExtResource("2_7c84e")
 theme_override_font_sizes/font_size = 64
