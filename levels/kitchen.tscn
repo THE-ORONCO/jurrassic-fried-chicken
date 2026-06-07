@@ -19,7 +19,11 @@
 [ext_resource type="Texture2D" uid="uid://duaye7h2w4p7t" path="res://assets/hammerhand_ugly.png" id="13_8eye8"]
 [ext_resource type="Texture2D" uid="uid://va3d8vmu50vl" path="res://assets/kitchenboard_full.png" id="13_vkim1"]
 [ext_resource type="Texture2D" uid="uid://h3d4keqtqar8" path="res://assets/hammerhand_very_ugly.png" id="14_0cogh"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="14_8iee3"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="15_vipav"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="16_3q7r8"]
 [ext_resource type="Script" uid="uid://cugq46tmwr2hl" path="res://levels/camera.gd" id="16_pnyds"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="17_vipav"]
 [ext_resource type="PackedScene" uid="uid://nxyehjybuxxf" path="res://UI/player_health.tscn" id="18_ct8bv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xsnc5"]
@@ -126,7 +130,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(0, -150)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -152,11 +156,22 @@ tracks/2/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HammerArm/HammerShape/HammerBox:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_jwpeu"]
 resource_name = "attack"
-length = 2.0
-loop_mode = 1
+length = 1.5666667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -164,7 +179,7 @@ tracks/0/path = NodePath("HammerArm:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.33333334, 1.5666667, 2),
+"times": PackedFloat32Array(0, 0.33333334, 0.9, 1.3333333),
 "transitions": PackedFloat32Array(1, 0.11662923, 0.08838839, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -67.245), Vector2(-52, 839)]
@@ -176,7 +191,7 @@ tracks/1/path = NodePath("HammerArm/HammerArmSprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 1.5, 1.5333333, 1.5666666, 1.6, 1.6333333, 1.6666666, 1.7),
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.83333325, 0.86666656, 0.89999986, 0.9333333, 0.9666666, 0.9999999, 1.0333333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [3, 2, 1, 0, 0, 1, 2, 3, 2, 1, 0]
@@ -184,27 +199,55 @@ tracks/1/keys = {
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("%Animation")
+tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"values": []
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(1.6666666),
+"times": PackedFloat32Array(0.96666664),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"impact"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HammerArm/HammerHitBox/HammerHitShape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.033333335, 1.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HammerArm/HammerShape/HammerBox:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.033333335, 1.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_vipav"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HammerArm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -150)]
 }
 
 [sub_resource type="Animation" id="Animation_0cogh"]
@@ -234,11 +277,41 @@ tracks/1/keys = {
 "values": [Vector2(-52, 839), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_3q7r8"]
+resource_name = "show"
+length = 0.56666666
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HammerArm:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.56666666),
+"transitions": PackedFloat32Array(0.5946036, 1, 1),
+"update": 0,
+"values": [Vector2(0, -150), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HammerArm/HammerArmSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1iyj4"]
 _data = {
 &"RESET": SubResource("Animation_sgr54"),
 &"attack": SubResource("Animation_jwpeu"),
-&"recover": SubResource("Animation_0cogh")
+&"hide": SubResource("Animation_vipav"),
+&"recover": SubResource("Animation_0cogh"),
+&"show": SubResource("Animation_3q7r8")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8v1b"]
@@ -318,13 +391,54 @@ unique_name_in_owner = true
 position = Vector2(960, 675)
 scale = Vector2(-1, 1)
 
-[node name="Hammer" type="Node2D" parent="Chef/Attacks" unique_id=743263575 node_paths=PackedStringArray("cam")]
+[node name="Hammer" type="Node2D" parent="Chef/Attacks" unique_id=743263575 node_paths=PackedStringArray("cam", "target")]
+unique_name_in_owner = true
 position = Vector2(960, 0)
-scale = Vector2(-1, 1)
 script = ExtResource("13_0cogh")
 cam = NodePath("../../../Camera")
+target = NodePath("../../../Player")
+
+[node name="StateChart" type="Node" parent="Chef/Attacks/Hammer" unique_id=667561817]
+unique_name_in_owner = true
+script = ExtResource("14_8iee3")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="CompoundState" type="Node" parent="Chef/Attacks/Hammer/StateChart" unique_id=967569246]
+script = ExtResource("15_vipav")
+initial_state = NodePath("Hidden")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Hidden" type="Node" parent="Chef/Attacks/Hammer/StateChart/CompoundState" unique_id=659219586]
+script = ExtResource("16_3q7r8")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="OnShow" type="Node" parent="Chef/Attacks/Hammer/StateChart/CompoundState/Hidden" unique_id=357988303]
+script = ExtResource("17_vipav")
+to = NodePath("../../Tracking")
+event = &"show"
+delay_in_seconds = "0.0"
+
+[node name="Tracking" type="Node" parent="Chef/Attacks/Hammer/StateChart/CompoundState" unique_id=1445300395]
+script = ExtResource("16_3q7r8")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="OnAttack" type="Node" parent="Chef/Attacks/Hammer/StateChart/CompoundState/Tracking" unique_id=1574342591]
+script = ExtResource("17_vipav")
+to = NodePath("../../Attacking")
+delay_in_seconds = "3."
+
+[node name="Attacking" type="Node" parent="Chef/Attacks/Hammer/StateChart/CompoundState" unique_id=2088984880]
+script = ExtResource("16_3q7r8")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="OnHidden" type="Node" parent="Chef/Attacks/Hammer/StateChart/CompoundState/Attacking" unique_id=935775469]
+script = ExtResource("17_vipav")
+to = NodePath("../../Hidden")
+event = &"hidden"
+delay_in_seconds = "0.0"
 
 [node name="HammerArm" type="Node2D" parent="Chef/Attacks/Hammer" unique_id=1755018837]
+position = Vector2(0, -150)
 
 [node name="HammerArmSprite" type="AnimatedSprite2D" parent="Chef/Attacks/Hammer/HammerArm" unique_id=86754939]
 position = Vector2(709.9999, -205)
@@ -341,11 +455,19 @@ collision_mask = 2
 position = Vector2(-3.5, -10.5)
 shape = SubResource("RectangleShape2D_q1177")
 
+[node name="HammerShape" type="AnimatableBody2D" parent="Chef/Attacks/Hammer/HammerArm" unique_id=168928425]
+
+[node name="HammerBox" type="CollisionShape2D" parent="Chef/Attacks/Hammer/HammerArm/HammerShape" unique_id=776747722]
+position = Vector2(-3.5, -0.5)
+shape = SubResource("RectangleShape2D_q1177")
+disabled = true
+
 [node name="Animation" type="AnimationPlayer" parent="Chef/Attacks/Hammer" unique_id=375673102]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_1iyj4")
-autoplay = &"attack"
-next/attack = &"RESET"
+next/attack = &"recover"
+next/recover = &"hide"
+next/hide = &"RESET"
 
 [node name="Table2" type="StaticBody2D" parent="." unique_id=881072840]
 position = Vector2(959, 886.655)
@@ -376,14 +498,12 @@ offset = Vector2(0, -319.325)
 position = Vector2(654, 706)
 
 [node name="StateChartDebugger" parent="." unique_id=1408026270 instance=ExtResource("8_a8v1b")]
-visible = false
 texture_filter = 2
-offset_left = 18.0
-offset_top = 19.0
-offset_right = 489.0
-offset_bottom = 585.0
-enabled = false
-initial_node_to_watch = NodePath("../Player/StateChart")
+offset_left = 45.0
+offset_top = 201.0
+offset_right = 516.0
+offset_bottom = 767.0
+initial_node_to_watch = NodePath("../Chef/Attacks/Hammer/StateChart")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1971582083 node_paths=PackedStringArray("target")]
 unique_name_in_owner = true
@@ -391,3 +511,8 @@ anchor_mode = 0
 script = ExtResource("16_pnyds")
 target = NodePath("../Player")
 metadata/_custom_type_script = "uid://cugq46tmwr2hl"
+
+[connection signal="state_entered" from="Chef/Attacks/Hammer/StateChart/CompoundState/Tracking" to="Chef/Attacks/Hammer" method="_on_tracking_state_entered"]
+[connection signal="state_physics_processing" from="Chef/Attacks/Hammer/StateChart/CompoundState/Tracking" to="Chef/Attacks/Hammer" method="_on_tracking_state_physics_processing"]
+[connection signal="state_entered" from="Chef/Attacks/Hammer/StateChart/CompoundState/Attacking" to="Chef/Attacks/Hammer" method="_on_attacking_state_entered"]
+[connection signal="state_exited" from="Chef/Attacks/Hammer/StateChart/CompoundState/Attacking" to="Chef/Attacks/Hammer" method="_on_attacking_state_exited"]
