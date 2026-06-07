@@ -1,3 +1,4 @@
+class_name CleaverAttack
 extends Node2D
 
 @onready var hitbox: Area2D = %Hitbox
