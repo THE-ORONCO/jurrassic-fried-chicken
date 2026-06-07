@@ -45,10 +45,12 @@ script = ExtResource("1_a8v1b")
 [node name="PlayerHealth" parent="." unique_id=1819893308 node_paths=PackedStringArray("player") instance=ExtResource("18_ct8bv")]
 player = NodePath("../Player")
 
-[node name="Chef" type="Node2D" parent="." unique_id=2062955559 node_paths=PackedStringArray("camera")]
+[node name="Chef" type="Node2D" parent="." unique_id=2062955559 node_paths=PackedStringArray("camera", "left_attacks", "right_attacks")]
 position = Vector2(925, 503)
 script = ExtResource("2_bxbpt")
 camera = NodePath("../Camera")
+left_attacks = [NodePath("Attacks/L/PepperAttackL"), NodePath("Attacks/L/CleaverAttackL"), NodePath("Attacks/L/HammerAttackL")]
+right_attacks = [NodePath("Attacks/R/HammerAttackR"), NodePath("Attacks/R/PepperAttackR"), NodePath("Attacks/R/CleaverAttackR")]
 metadata/_custom_type_script = "uid://cflteopy1d3tl"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chef" unique_id=1108160508]
@@ -64,40 +66,47 @@ texture = ExtResource("5_ct8bv")
 [node name="Attacks" type="Node2D" parent="Chef" unique_id=899749734]
 position = Vector2(-925, -503)
 
-[node name="PepperAttackL" parent="Chef/Attacks" unique_id=2104533174 node_paths=PackedStringArray("target", "spawn_container") instance=ExtResource("8_pnyds")]
+[node name="L" type="Node2D" parent="Chef/Attacks" unique_id=1917391063]
+
+[node name="PepperAttackL" parent="Chef/Attacks/L" unique_id=2104533174 node_paths=PackedStringArray("target", "spawn_container") instance=ExtResource("8_pnyds")]
 unique_name_in_owner = true
 position = Vector2(960, 0)
-scale = Vector2(-1, 1)
-target = NodePath("../../../Player")
-spawn_container = NodePath("../../..")
+rotation = 3.1415927
+scale = Vector2(1, -1)
+target = NodePath("../../../../Player")
+spawn_container = NodePath("../../../..")
 
-[node name="PepperAttackR" parent="Chef/Attacks" unique_id=110460612 node_paths=PackedStringArray("target", "spawn_container") instance=ExtResource("8_pnyds")]
-unique_name_in_owner = true
-position = Vector2(960, 0)
-target = NodePath("../../../Player")
-spawn_container = NodePath("../../..")
-
-[node name="CleaverAttackR" parent="Chef/Attacks" unique_id=128461842 instance=ExtResource("10_y0npq")]
+[node name="CleaverAttackL" parent="Chef/Attacks/L" unique_id=803243789 instance=ExtResource("10_y0npq")]
 unique_name_in_owner = true
 position = Vector2(960, 675)
+rotation = 3.1415927
+scale = Vector2(1, -1)
 
-[node name="CleaverAttackL" parent="Chef/Attacks" unique_id=803243789 instance=ExtResource("10_y0npq")]
+[node name="HammerAttackL" parent="Chef/Attacks/L" unique_id=1023088986 node_paths=PackedStringArray("cam", "target") instance=ExtResource("13_xsnc5")]
+unique_name_in_owner = true
+position = Vector2(960, 0)
+rotation = 3.1415927
+scale = Vector2(1, -1)
+cam = NodePath("../../../../Camera")
+target = NodePath("../../../../Player")
+
+[node name="R" type="Node2D" parent="Chef/Attacks" unique_id=975734831]
+
+[node name="HammerAttackR" parent="Chef/Attacks/R" unique_id=1126839076 node_paths=PackedStringArray("cam", "target") instance=ExtResource("13_xsnc5")]
+unique_name_in_owner = true
+position = Vector2(960, 0)
+cam = NodePath("../../../../Camera")
+target = NodePath("../../../../Player")
+
+[node name="PepperAttackR" parent="Chef/Attacks/R" unique_id=110460612 node_paths=PackedStringArray("target", "spawn_container") instance=ExtResource("8_pnyds")]
+unique_name_in_owner = true
+position = Vector2(960, 0)
+target = NodePath("../../../../Player")
+spawn_container = NodePath("../../../..")
+
+[node name="CleaverAttackR" parent="Chef/Attacks/R" unique_id=128461842 instance=ExtResource("10_y0npq")]
 unique_name_in_owner = true
 position = Vector2(960, 675)
-scale = Vector2(-1, 1)
-
-[node name="HammerAttackR" parent="Chef/Attacks" unique_id=1126839076 node_paths=PackedStringArray("cam", "target") instance=ExtResource("13_xsnc5")]
-unique_name_in_owner = true
-position = Vector2(960, 0)
-cam = NodePath("../../../Camera")
-target = NodePath("../../../Player")
-
-[node name="HammerAttackL" parent="Chef/Attacks" unique_id=1023088986 node_paths=PackedStringArray("cam", "target") instance=ExtResource("13_xsnc5")]
-unique_name_in_owner = true
-position = Vector2(960, 0)
-scale = Vector2(-1, 1)
-cam = NodePath("../../../Camera")
-target = NodePath("../../../Player")
 
 [node name="Table2" type="StaticBody2D" parent="." unique_id=881072840]
 position = Vector2(959, 886.655)
@@ -133,7 +142,7 @@ offset_left = 45.0
 offset_top = 201.0
 offset_right = 516.0
 offset_bottom = 767.0
-initial_node_to_watch = NodePath("../Chef/Attacks/PepperAttackL/StateChart")
+initial_node_to_watch = NodePath("../Chef/Attacks/L/PepperAttackL/StateChart")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1971582083 node_paths=PackedStringArray("target")]
 unique_name_in_owner = true

@@ -98,7 +98,18 @@ metadata/_custom_type_script = "uid://jk2jm1g6q853"
 script = ExtResource("8_15tl0")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="OnShow" type="Node" parent="StateChart/CompoundState/Hiding" unique_id=1084957266]
+[node name="OnHidden" type="Node" parent="StateChart/CompoundState/Hiding" unique_id=1084957266]
+script = ExtResource("9_3axap")
+to = NodePath("../../Hidden")
+event = &"hidden"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Hidden" type="Node" parent="StateChart/CompoundState" unique_id=579309753]
+script = ExtResource("8_15tl0")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="OnShow" type="Node" parent="StateChart/CompoundState/Hidden" unique_id=57595288]
 script = ExtResource("9_3axap")
 to = NodePath("../../Showing")
 event = &"show"
@@ -127,6 +138,7 @@ delay_in_seconds = "10."
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [connection signal="state_physics_processing" from="StateChart/CompoundState/Hiding" to="." method="_on_hiding_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/CompoundState/Hidden" to="." method="_on_hidden_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Showing" to="." method="_on_showing_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/CompoundState/Showing" to="." method="_on_showing_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/CompoundState/Showing" to="." method="_tracking_physics_process"]

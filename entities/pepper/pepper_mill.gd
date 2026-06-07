@@ -55,7 +55,6 @@ func _tracking_physics_process(delta:float) -> void:
 func _on_attacking_state_entered() -> void:
 	track = 0.
 
-
 func _on_attacking_state_exited() -> void:
 	timer.stop()
 
@@ -71,3 +70,10 @@ func _on_attacking_state_physics_processing(delta: float) -> void:
 func _on_hiding_state_physics_processing(delta: float) -> void:
 	pepper_arm.position.x = move_toward(pepper_arm.position.x, OUTSIDE, 20)
 	offset.position.x = move_toward(offset.position.x, 0, 10)
+	
+	if pepper_arm.position.x >= OUTSIDE:
+		state_chart.send_event("hidden")
+
+
+func _on_hidden_state_entered() -> void:
+	attack_finished.emit()
