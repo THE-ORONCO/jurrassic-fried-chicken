@@ -18,7 +18,7 @@ signal was_hit(shake: float)
 @export_range(1., 1000.) var terminal_velocity := 700.
 
 @export_category("dash")
-@export_range(1, 2000) var dash_speed := 1000.
+@export_range(1, 2000) var dash_speed := 700.
 @export_range(0.01, 1.) var dash_duration := .2:
 	set(val):
 		dash_duration = _update_chart_props(val)

@@ -57,6 +57,7 @@ autostart = true
 
 [node name="PlayerHealth" parent="." unique_id=1819893308 node_paths=PackedStringArray("player") instance=ExtResource("18_ct8bv")]
 unique_name_in_owner = true
+max_health = 5
 player = NodePath("../Player")
 
 [node name="Chef" type="Node2D" parent="." unique_id=2062955559 node_paths=PackedStringArray("camera", "left_attacks", "right_attacks")]
@@ -68,9 +69,10 @@ right_attacks = [NodePath("Attacks/R/HammerAttackR"), NodePath("Attacks/R/Pepper
 attack_cooldown = 0.1
 metadata/_custom_type_script = "uid://cflteopy1d3tl"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chef" unique_id=1108160508]
+[node name="Body" type="AnimatedSprite2D" parent="Chef" unique_id=1108160508]
 sprite_frames = SubResource("SpriteFrames_xsnc5")
-animation = &"grab_weapon"
+animation = &"idle"
+autoplay = "idle"
 
 [node name="ChefScarf" type="Sprite2D" parent="Chef" unique_id=1365218679]
 texture = ExtResource("4_bxbpt")
