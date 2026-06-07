@@ -57,6 +57,7 @@ func _ready() -> void:
 	stop_walk.connect(func(): state_chart.send_event("stop_walk"))
 
 	_update_chart_props()
+	_map_input_to_statechart()
 	
 	invincibility_timer.timeout.connect(stop_blink)
 	blink_timer.timeout.connect(func(): animation.visible = !animation.visible)

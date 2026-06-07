@@ -43,7 +43,14 @@ size = Vector2(1728, 248)
 [node name="Kitchen" type="Node2D" unique_id=1677156133]
 script = ExtResource("1_a8v1b")
 
+[node name="WinTimer" type="Timer" parent="." unique_id=983130379]
+unique_name_in_owner = true
+wait_time = 60.0
+one_shot = true
+autostart = true
+
 [node name="PlayerHealth" parent="." unique_id=1819893308 node_paths=PackedStringArray("player") instance=ExtResource("18_ct8bv")]
+unique_name_in_owner = true
 player = NodePath("../Player")
 
 [node name="Chef" type="Node2D" parent="." unique_id=2062955559 node_paths=PackedStringArray("camera", "left_attacks", "right_attacks")]
