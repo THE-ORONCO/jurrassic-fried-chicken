@@ -1,9 +1,11 @@
+class_name Player
 extends CharacterBody2D
 
 signal landed_on_floor
 signal left_floor
 signal start_walk
 signal stop_walk
+signal took_damage(shake:float)
 
 @export_category("ground movement")
 @export_range(1., 1000.) var move_speed := 300.0
@@ -41,6 +43,9 @@ var _jump_progress := 0.
 var _dash_dir := Vector2.UP
 var _dash_vel := Vector2.ZERO
 var _look := LookDir.RIGHT
+
+func take_damage(amount:= .5) -> void:
+	took_damage.emit(amount)
 
 func _ready() -> void:
 	_was_on_floor = is_on_floor()
@@ -90,7 +95,6 @@ func _map_input_to_statechart() -> void:
 func _apply_gravity_physics_process(delta: float) -> void:
 	if !is_on_floor():
 		velocity += get_gravity() * delta
-
 
 func move_horizontal(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")

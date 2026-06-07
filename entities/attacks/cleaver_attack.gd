@@ -1,6 +1,8 @@
 class_name CleaverAttack
 extends Node2D
 
+@export var shake_amount := .8
+
 @onready var hitbox: Area2D = %Hitbox
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hit_shape: CollisionShape2D = %HitShape
@@ -13,6 +15,6 @@ func attack(speed := 1) -> void:
 	animation_player.play("attack")
 
 func handle_hit(thing: Node2D) -> void:
-	if thing is CharacterBody2D:
-		print("ouch")
+	if thing.has_method("take_damage"):
+		thing.take_damage(shake_amount)
 		hit_shape.set_deferred("disabled",  true)

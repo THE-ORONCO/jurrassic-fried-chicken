@@ -1,6 +1,13 @@
 class_name Burner
 extends Node2D
 
+@export var shake_amount := .6:
+	set(val):
+		if hit_box:
+			shake_amount = val
+			hit_box.shake_amount = shake_amount
+			
+
 @onready var fire: GPUParticles2D = %Fire
 @onready var hit_box: Area2D = %HitBox
 @onready var hit_shape: CollisionShape2D = $HitBox/HitShape
@@ -9,6 +16,7 @@ extends Node2D
 func _ready() -> void:
 	fire.emitting = false
 	hit_shape.disabled = true
+	shake_amount = shake_amount
 	
 func turn_on(spark_number := 3, time_till_ignition := 2.) -> void:
 	while time_till_ignition >= 0.:
