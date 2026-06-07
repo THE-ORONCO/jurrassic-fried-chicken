@@ -14,6 +14,8 @@ signal burner_off
 @onready var hit_box: Area2D = %HitBox
 @onready var hit_shape: CollisionShape2D = $HitBox/HitShape
 @onready var sparks: GPUParticles2D = %Spark
+@onready var stove_click_sound: AudioStreamPlayer = %StoveClickSound
+@onready var stove_flame_sound: AudioStreamPlayer = %StoveFlameSound
 
 var burning := false
 
@@ -29,8 +31,14 @@ func turn_on(time_till_ignition := 2., burn_time = 5.) -> void:
 		time_till_ignition -= sparks.lifetime + random_wait
 
 		await spark()
-		await get_tree().create_timer(random_wait).timeout	
+		stove_click_sound.pitch_scale = randf_range(0.97, 1.03)
+		stove_click_sound.play()
+		await get_tree().create_timer(random_wait).timeout
+	
+	hit_shape.disabled = false
 	fire.emitting = true
+	stove_flame_sound.pitch_scale = randf_range(0.97, 1.03)
+	stove_flame_sound.play()
 	get_tree().create_timer(burn_time).timeout.connect(turn_off)
 
 func turn_off(off_t := .3) -> Signal:
@@ -41,6 +49,7 @@ func turn_off(off_t := .3) -> Signal:
 		fire.amount_ratio = 1
 		hit_shape.disabled = true
 		burning = false
+		stove_flame_sound.stop()
 		burner_off.emit()
 		)
 	return tween.finished

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://7t8nimwt3y8y"]
 
 [ext_resource type="Script" uid="uid://cdm1v53we7tcy" path="res://entities/pepper/pepper_mill.gd" id="1_08j0h"]
+[ext_resource type="AudioStream" uid="uid://dtjdpimhexpx2" path="res://assets/Sounds/pepper_sound.mp3" id="2_08j0h"]
 [ext_resource type="Texture2D" uid="uid://wn2yxrsfl2s" path="res://assets/pepperhand_ugly.png" id="2_hubqo"]
 [ext_resource type="Script" uid="uid://b116xu2wb0hva" path="res://entities/bullet_spawner.gd" id="4_t0fgp"]
 [ext_resource type="PackedScene" uid="uid://v1jv1bd80ov8" path="res://entities/pepper/pepper.tscn" id="5_fdk8d"]
@@ -41,6 +42,11 @@ _data = {
 
 [node name="PepperAttack" type="Node2D" unique_id=2104533174]
 script = ExtResource("1_08j0h")
+
+[node name="PepperSound" type="AudioStreamPlayer" parent="." unique_id=1674150418]
+unique_name_in_owner = true
+stream = ExtResource("2_08j0h")
+bus = &"Sfx"
 
 [node name="PepperArm" type="Node2D" parent="." unique_id=1312234919]
 unique_name_in_owner = true

@@ -7,6 +7,7 @@ extends Attack
 @onready var animation: AnimationPlayer = %Animation
 @onready var state_chart: StateChart = %StateChart
 @onready var hammer_hit_box: Area2D = %HammerHitBox
+@onready var hammer_strike_sound: AudioStreamPlayer = %HammerStrikeSound
 
 
 func _ready() -> void:

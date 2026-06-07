@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://884ldk4r00gb" path="res://entities/burner/burner.gd" id="1_02p6g"]
 [ext_resource type="Texture2D" uid="uid://bbdirp0adnq8i" path="res://assets/stove.png" id="2_jv2fh"]
 [ext_resource type="Script" uid="uid://v4vmr2dx0rgi" path="res://entities/hit_box.gd" id="3_jv2fh"]
+[ext_resource type="AudioStream" uid="uid://yt3jscdlw2rj" path="res://assets/Sounds/stove_click_sound.wav" id="4_674ih"]
+[ext_resource type="AudioStream" uid="uid://djrbg6jth8bvx" path="res://assets/Sounds/stove_flame_sound.mp3" id="5_674ih"]
 
 [sub_resource type="Gradient" id="Gradient_jv2fh"]
 colors = PackedColorArray(0.83137256, 0.6117647, 0, 0.35686275, 1, 1, 0.1254902, 0.48235294)
@@ -127,3 +129,16 @@ script = ExtResource("3_jv2fh")
 [node name="HitShape" type="CollisionShape2D" parent="HitBox" unique_id=1949743398]
 position = Vector2(-1.9999924, -87.5)
 shape = SubResource("RectangleShape2D_j37k6")
+
+[node name="StoveClickSound" type="AudioStreamPlayer" parent="." unique_id=1024893961]
+unique_name_in_owner = true
+stream = ExtResource("4_674ih")
+max_polyphony = 5
+bus = &"Sfx"
+
+[node name="StoveFlameSound" type="AudioStreamPlayer" parent="." unique_id=1933503]
+unique_name_in_owner = true
+stream = ExtResource("5_674ih")
+volume_db = -7.167
+max_polyphony = 5
+bus = &"Sfx"

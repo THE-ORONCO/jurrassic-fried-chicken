@@ -15,6 +15,7 @@ extends Attack
 @onready var pepper_arm: Node2D = %PepperArm
 @onready var offset: Node2D = %Offset
 @onready var on_finsihed_attacking: Transition = %OnFinsihedAttacking
+@onready var pepper_sound: AudioStreamPlayer = %PepperSound
 
 var track := 0.
 var extra_multiplyer := 1.
@@ -61,9 +62,15 @@ func _tracking_physics_process(delta:float) -> void:
 
 func _on_attacking_state_entered() -> void:
 	track = 0.
+	pepper_sound.volume_db = 0.
+	pepper_sound.pitch_scale = randf_range(0.98, 1.02)
+	pepper_sound.play()
 
 func _on_attacking_state_exited() -> void:
 	timer.stop()
+	var t := create_tween()
+	t.tween_property(pepper_sound, "volume_db", -100., .5)
+	t.tween_callback(pepper_sound.stop)
 
 func _on_attacking_state_physics_processing(delta: float) -> void:
 	offset.position.x += current_offset_speed * delta * extra_multiplyer
