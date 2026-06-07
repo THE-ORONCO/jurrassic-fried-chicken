@@ -16,6 +16,7 @@ var attacking_l := false
 var rage := 1.
 
 func _ready() -> void:
+	randomize()
 	l_cooldown.wait_time = attack_cooldown
 	l_cooldown.timeout.connect(func(): attacking_l = false)
 	r_cooldown.wait_time = attack_cooldown

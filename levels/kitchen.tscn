@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="8_a8v1b"]
 [ext_resource type="PackedScene" uid="uid://7t8nimwt3y8y" path="res://levels/pepper_attack.tscn" id="8_pnyds"]
 [ext_resource type="PackedScene" uid="uid://dy1hiktemb081" path="res://entities/attacks/cleaver_attack.tscn" id="10_y0npq"]
+[ext_resource type="Script" uid="uid://dxj1wfdybibyf" path="res://entities/table/table.gd" id="11_bxbpt"]
 [ext_resource type="Texture2D" uid="uid://bf165alvf6bbk" path="res://assets/kitchenboard_cutout.png" id="12_y0npq"]
 [ext_resource type="Texture2D" uid="uid://va3d8vmu50vl" path="res://assets/kitchenboard_full.png" id="13_vkim1"]
 [ext_resource type="PackedScene" uid="uid://dnkobp6ndqbln" path="res://entities/attacks/hammer_attack.tscn" id="13_xsnc5"]
@@ -117,30 +118,37 @@ spawn_container = NodePath("../../../..")
 unique_name_in_owner = true
 position = Vector2(960, 675)
 
-[node name="Table2" type="StaticBody2D" parent="." unique_id=881072840]
+[node name="Table" type="StaticBody2D" parent="." unique_id=881072840 node_paths=PackedStringArray("burners")]
 position = Vector2(959, 886.655)
+script = ExtResource("11_bxbpt")
+burners = [NodePath("Burner"), NodePath("Burner2"), NodePath("Burner3")]
+burner_delay = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Table2" unique_id=809793046]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table" unique_id=809793046]
 position = Vector2(0, 181)
 shape = SubResource("RectangleShape2D_a8v1b")
 
-[node name="Burner" parent="Table2" unique_id=830126126 instance=ExtResource("7_j37k6")]
+[node name="Burner" parent="Table" unique_id=830126126 instance=ExtResource("7_j37k6")]
 unique_name_in_owner = true
 position = Vector2(-512, 122)
 
-[node name="Burner2" parent="Table2" unique_id=186028676 instance=ExtResource("7_j37k6")]
+[node name="Burner2" parent="Table" unique_id=186028676 instance=ExtResource("7_j37k6")]
 position = Vector2(0, 122)
 
-[node name="Burner3" parent="Table2" unique_id=66620177 instance=ExtResource("7_j37k6")]
+[node name="Burner3" parent="Table" unique_id=66620177 instance=ExtResource("7_j37k6")]
 position = Vector2(512, 122)
 
-[node name="KitchenboardCutout" type="Sprite2D" parent="Table2" unique_id=939074466]
+[node name="KitchenboardCutout" type="Sprite2D" parent="Table" unique_id=939074466]
 texture = ExtResource("12_y0npq")
 offset = Vector2(0, -384.594)
 
-[node name="KitchenboardFull" type="Sprite2D" parent="Table2" unique_id=1288875256]
+[node name="KitchenboardFull" type="Sprite2D" parent="Table" unique_id=1288875256]
 texture = ExtResource("13_vkim1")
 offset = Vector2(0, -319.325)
+
+[node name="BurnerCooldown" type="Timer" parent="Table" unique_id=1121920704]
+unique_name_in_owner = true
+one_shot = true
 
 [node name="Player" parent="." unique_id=1422934049 instance=ExtResource("2_8s7oc")]
 position = Vector2(654, 706)
