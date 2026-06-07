@@ -447,6 +447,7 @@ sprite_frames = SubResource("SpriteFrames_d8qaq")
 animation = &"attack"
 
 [node name="HammerHitBox" type="Area2D" parent="Chef/Attacks/Hammer/HammerArm" unique_id=855152400]
+unique_name_in_owner = true
 position = Vector2(0, 10)
 collision_layer = 0
 collision_mask = 2
