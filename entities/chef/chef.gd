@@ -24,12 +24,12 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if !attacking_l:
+		attacking_l = true
 		var rand_attack: Attack = left_attacks.pick_random()
 		rand_attack.attack(rage * randf_range(.9, 1.1))
-		attacking_l = true
 		rand_attack.attack_finished.connect(l_cooldown.start, CONNECT_ONE_SHOT)
 	if !attacking_r:
+		attacking_r = true
 		var rand_attack: Attack = right_attacks.pick_random()
 		rand_attack.attack(rage * randf_range(.9, 1.1))
-		attacking_r = true
 		rand_attack.attack_finished.connect(r_cooldown.start, CONNECT_ONE_SHOT)

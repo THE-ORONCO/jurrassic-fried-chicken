@@ -11,8 +11,8 @@ colors = PackedColorArray(0.83137256, 0.6117647, 0, 0.35686275, 1, 1, 0.1254902,
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_f7tds"]
 gradient = SubResource("Gradient_jv2fh")
-width = 5
-height = 5
+width = 10
+height = 10
 
 [sub_resource type="Curve" id="Curve_jv2fh"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.16666669, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.7717156, 0.0, 0, 0]
@@ -133,6 +133,7 @@ shape = SubResource("RectangleShape2D_j37k6")
 [node name="StoveClickSound" type="AudioStreamPlayer" parent="." unique_id=1024893961]
 unique_name_in_owner = true
 stream = ExtResource("4_674ih")
+volume_db = 11.182
 max_polyphony = 5
 bus = &"Sfx"
 

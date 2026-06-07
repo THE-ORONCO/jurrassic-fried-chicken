@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://cugq46tmwr2hl" path="res://levels/camera.gd" id="16_pnyds"]
 [ext_resource type="PackedScene" uid="uid://nxyehjybuxxf" path="res://UI/player_health.tscn" id="18_ct8bv"]
 [ext_resource type="AudioStream" uid="uid://cf5lcd1rck0ac" path="res://assets/Sounds/active_battle_music2.mp3" id="18_xsnc5"]
+[ext_resource type="Texture2D" uid="uid://dkj8ecvy46dmt" path="res://assets/jfc_backround.png" id="19_xsnc5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xsnc5"]
 animations = [{
@@ -43,6 +44,11 @@ size = Vector2(1728, 248)
 
 [node name="Kitchen" type="Node2D" unique_id=1677156133]
 script = ExtResource("1_a8v1b")
+
+[node name="JfcBackround" type="Sprite2D" parent="." unique_id=1564761048]
+position = Vector2(960, 540)
+scale = Vector2(1.03, 1.03)
+texture = ExtResource("19_xsnc5")
 
 [node name="WinTimer" type="Timer" parent="." unique_id=983130379]
 unique_name_in_owner = true
