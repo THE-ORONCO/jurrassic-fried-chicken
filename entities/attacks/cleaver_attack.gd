@@ -13,7 +13,7 @@ func _ready() -> void:
 			attack_finished.emit()
 		)
 
-func attack(speed := 1) -> void:
+func attack(speed := 1.) -> void:
 	animation_player.speed_scale = speed
 	animation_player.play("attack")
 

@@ -6,4 +6,4 @@ signal attack_finished
 
 
 @export var shake_amount := .8
-@abstract func attack(speed := 1) -> void
+@abstract func attack(speed := 1.) -> void

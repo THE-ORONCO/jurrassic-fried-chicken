@@ -132,9 +132,10 @@ script = ExtResource("8_15tl0")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
 [node name="OnFinsihedAttacking" type="Node" parent="StateChart/CompoundState/Attacking" unique_id=266695881]
+unique_name_in_owner = true
 script = ExtResource("9_3axap")
 to = NodePath("../../Hiding")
-delay_in_seconds = "10."
+delay_in_seconds = "6."
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [connection signal="state_physics_processing" from="StateChart/CompoundState/Hiding" to="." method="_on_hiding_state_physics_processing"]

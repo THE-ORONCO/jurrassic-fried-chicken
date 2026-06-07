@@ -51,6 +51,7 @@ script = ExtResource("2_bxbpt")
 camera = NodePath("../Camera")
 left_attacks = [NodePath("Attacks/L/PepperAttackL"), NodePath("Attacks/L/CleaverAttackL"), NodePath("Attacks/L/HammerAttackL")]
 right_attacks = [NodePath("Attacks/R/HammerAttackR"), NodePath("Attacks/R/PepperAttackR"), NodePath("Attacks/R/CleaverAttackR")]
+attack_cooldown = 0.1
 metadata/_custom_type_script = "uid://cflteopy1d3tl"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chef" unique_id=1108160508]
@@ -67,6 +68,10 @@ texture = ExtResource("5_ct8bv")
 position = Vector2(-925, -503)
 
 [node name="L" type="Node2D" parent="Chef/Attacks" unique_id=1917391063]
+
+[node name="LCooldown" type="Timer" parent="Chef/Attacks/L" unique_id=896621440]
+unique_name_in_owner = true
+one_shot = true
 
 [node name="PepperAttackL" parent="Chef/Attacks/L" unique_id=2104533174 node_paths=PackedStringArray("target", "spawn_container") instance=ExtResource("8_pnyds")]
 unique_name_in_owner = true
@@ -91,6 +96,10 @@ cam = NodePath("../../../../Camera")
 target = NodePath("../../../../Player")
 
 [node name="R" type="Node2D" parent="Chef/Attacks" unique_id=975734831]
+
+[node name="RCooldown" type="Timer" parent="Chef/Attacks/R" unique_id=1927546494]
+unique_name_in_owner = true
+one_shot = true
 
 [node name="HammerAttackR" parent="Chef/Attacks/R" unique_id=1126839076 node_paths=PackedStringArray("cam", "target") instance=ExtResource("13_xsnc5")]
 unique_name_in_owner = true

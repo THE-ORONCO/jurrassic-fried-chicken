@@ -21,7 +21,7 @@ func do_damage(thing: Node2D) -> void:
 	if thing.has_method("take_damage"):
 		thing.take_damage(shake_amount)
 
-func attack(speed := 1) -> void:
+func attack(speed := 1.) -> void:
 	animation.speed_scale = speed
 	state_chart.send_event("show")
 	
