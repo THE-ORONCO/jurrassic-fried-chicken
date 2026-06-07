@@ -54,9 +54,9 @@ offset_bottom = 40.0
 
 [node name="Try Again" type="Button" parent="Control" unique_id=331542099]
 layout_mode = 0
-offset_left = 590.0
+offset_left = 383.0
 offset_top = 901.0
-offset_right = 917.0
+offset_right = 710.0
 offset_bottom = 1002.0
 theme_override_fonts/font = ExtResource("1_83sw7")
 theme_override_font_sizes/font_size = 64
@@ -65,12 +65,25 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_0iwc1")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0i376")
 text = "Try Again"
 
+[node name="Main Menu" type="Button" parent="Control" unique_id=1519845643]
+layout_mode = 0
+offset_left = 758.0
+offset_top = 901.0
+offset_right = 1125.0
+offset_bottom = 1002.0
+theme_override_fonts/font = ExtResource("1_83sw7")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_omspb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0iwc1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0i376")
+text = "Main Menu"
+
 [node name="Exit" type="Button" parent="Control" unique_id=1256588090]
 layout_mode = 0
-offset_left = 1021.0
-offset_top = 902.0
-offset_right = 1214.0
-offset_bottom = 1003.0
+offset_left = 1166.0
+offset_top = 899.0
+offset_right = 1359.0
+offset_bottom = 1000.0
 theme_override_fonts/font = ExtResource("1_83sw7")
 theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxFlat_omspb")
@@ -91,4 +104,5 @@ text = "Not the dinosaur you wanted to be..."
 horizontal_alignment = 1
 
 [connection signal="pressed" from="Control/Try Again" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Control/Main Menu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="Control/Exit" to="." method="_on_exit_pressed"]

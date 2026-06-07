@@ -15,7 +15,7 @@ signal was_hit(shake: float)
 @export_range(-1000, -1) var jump_vel := -300.0
 @export var normal_gravity_factor := 1.
 @export var glide_terminal_velocity := 50
-@export_range(1., 1000.) var terminal_velocity := 700.
+@export_range(1., 1000.) var terminal_velocity := 900.
 
 @export_category("dash")
 @export_range(1, 2000) var dash_speed := 700.

@@ -41,6 +41,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8v1b"]
 size = Vector2(1728, 248)
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ct8bv"]
+
 [node name="Kitchen" type="Node2D" unique_id=1677156133]
 script = ExtResource("1_a8v1b")
 
@@ -51,7 +53,7 @@ texture = ExtResource("2_ct8bv")
 
 [node name="WinTimer" type="Timer" parent="." unique_id=983130379]
 unique_name_in_owner = true
-wait_time = 60.0
+wait_time = 45.0
 one_shot = true
 autostart = true
 
@@ -166,6 +168,7 @@ unique_name_in_owner = true
 one_shot = true
 
 [node name="Player" parent="." unique_id=1422934049 instance=ExtResource("2_8s7oc")]
+unique_name_in_owner = true
 position = Vector2(654, 706)
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1971582083 node_paths=PackedStringArray("target")]
@@ -179,3 +182,16 @@ metadata/_custom_type_script = "uid://cugq46tmwr2hl"
 stream = ExtResource("18_xsnc5")
 volume_db = -6.149
 autoplay = true
+
+[node name="Void" type="Area2D" parent="." unique_id=754774418]
+unique_name_in_owner = true
+position = Vector2(956, 1222)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Void" unique_id=833539356]
+shape = SubResource("WorldBoundaryShape2D_ct8bv")
+
+[node name="RespawnPosition" type="Marker2D" parent="." unique_id=844403527]
+unique_name_in_owner = true
+position = Vector2(927, 501)
