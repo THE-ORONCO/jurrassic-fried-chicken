@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bf165alvf6bbk" path="res://assets/kitchenboard_cutout.png" id="12_y0npq"]
 [ext_resource type="Texture2D" uid="uid://va3d8vmu50vl" path="res://assets/kitchenboard_full.png" id="13_vkim1"]
 [ext_resource type="Script" uid="uid://cugq46tmwr2hl" path="res://levels/camera.gd" id="16_pnyds"]
+[ext_resource type="PackedScene" uid="uid://nxyehjybuxxf" path="res://UI/player_health.tscn" id="18_ct8bv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xsnc5"]
 animations = [{
@@ -64,6 +65,9 @@ size = Vector2(1728, 248)
 
 [node name="Kitchen" type="Node2D" unique_id=1677156133]
 script = ExtResource("1_a8v1b")
+
+[node name="PlayerHealth" parent="." unique_id=1819893308 node_paths=PackedStringArray("player") instance=ExtResource("18_ct8bv")]
+player = NodePath("../Player")
 
 [node name="Chef" type="Node2D" parent="." unique_id=2062955559 node_paths=PackedStringArray("camera")]
 position = Vector2(925, 503)
@@ -163,10 +167,12 @@ position = Vector2(654, 706)
 
 [node name="StateChartDebugger" parent="." unique_id=1408026270 instance=ExtResource("8_a8v1b")]
 visible = false
+texture_filter = 2
 offset_left = 18.0
 offset_top = 19.0
 offset_right = 489.0
 offset_bottom = 585.0
+enabled = false
 initial_node_to_watch = NodePath("../Player/StateChart")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1971582083 node_paths=PackedStringArray("target")]

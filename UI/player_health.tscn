@@ -1,13 +1,24 @@
 [gd_scene format=3 uid="uid://nxyehjybuxxf"]
 
 [ext_resource type="Texture2D" uid="uid://o14plnl4sh7r" path="res://assets/Health.png" id="1_5pw3m"]
-[ext_resource type="Script" uid="uid://brlibcgk0oecn" path="res://progress_bar.gd" id="1_p6ot0"]
+[ext_resource type="Shader" uid="uid://dicp02urloeeh" path="res://entities/pepper/pepper.gdshader" id="1_qt50y"]
+[ext_resource type="Script" uid="uid://wxrie71mopmq" path="res://UI/player_health.gd" id="1_yy3vk"]
 
-[node name="PlayerHealth" type="Node2D" unique_id=1819893308]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yy3vk"]
+shader = ExtResource("1_qt50y")
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 5.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[node name="PlayerHealth" type="Node2D" unique_id=1302854891]
+script = ExtResource("1_yy3vk")
+metadata/_custom_type_script = "uid://wxrie71mopmq"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1956949797]
 
 [node name="ProgressBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=723299674]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_yy3vk")
 offset_left = 27.0
 offset_top = 41.0
 offset_right = 436.0
@@ -15,4 +26,3 @@ offset_bottom = 107.0
 max_value = 5.0
 value = 3.0
 texture_progress = ExtResource("1_5pw3m")
-script = ExtResource("1_p6ot0")

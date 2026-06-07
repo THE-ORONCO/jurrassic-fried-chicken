@@ -12,7 +12,7 @@ var trauma_power := 2  # Trauma exponent. Use [2, 3].
 
 func _ready():
 	randomize()
-	target.took_damage.connect(add_trauma)
+	target.was_hit.connect(add_trauma)
 
 func add_trauma(amount):
 	trauma = min(trauma + amount, max_trauma)
