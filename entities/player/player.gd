@@ -31,6 +31,12 @@ signal was_hit(shake: float)
 
 @onready var _gravity_factor := normal_gravity_factor
 
+@onready var damage_sound: AudioStreamPlayer = %Damage
+@onready var dash_sound: AudioStreamPlayer = %Dash
+@onready var flutter_sound: AudioStreamPlayer = %Flutter
+@onready var jump_sound: AudioStreamPlayer = %Jump
+@onready var running_sound: AudioStreamPlayer = $Running
+
 enum LookDir {
 	LEFT = -1,
 	RIGHT = 1,
@@ -68,6 +74,8 @@ func take_damage(amount:= .5) -> void:
 		took_damage.emit()
 		invincibility_timer.start()
 		start_blink()
+		damage_sound.pitch_scale = randf_range(0.97, 1.03)
+		damage_sound.play()
 
 func start_blink() -> void:
 	blink_timer.start()
@@ -148,6 +156,9 @@ func _on_jumping_state_entered() -> void:
 	_jump_vel_left = jump_vel
 	_jump_time = %OnTimeout.delay_seconds
 	_jump_progress = 0.
+	
+	jump_sound.pitch_scale = randf_range(0.97, 1.03)
+	jump_sound.play()
 
 func _on_jumping_state_physics_processing(delta: float) -> void:	
 	if Input.is_action_just_released("jump"):
@@ -168,6 +179,15 @@ func _on_airborne_state_physics_processing(delta: float) -> void:
 
 
 #region GLIDE
+
+func _on_gliding_state_entered() -> void:
+	
+	flutter_sound.pitch_scale = randf_range(0.97, 1.03)
+	flutter_sound.play()
+
+func _on_gliding_state_exited() -> void:
+	flutter_sound.stop()
+	
 func _on_gliding_state_physics_processing(delta: float) -> void:
 	velocity.y = clamp(velocity.y, -glide_terminal_velocity, glide_terminal_velocity)
 	if Input.is_action_just_released("jump"):
@@ -187,6 +207,8 @@ func _on_can_dash_state_physics_processing(delta: float) -> void:
 func _on_dashing_state_entered() -> void:
 	_dash_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	_dash_vel = _dash_dir * dash_speed
+	dash_sound.pitch_scale = randf_range(0.97, 1.03)
+	dash_sound.play()
 
 func _on_dashing_state_exited() -> void:
 	_dash_vel = Vector2.ZERO
@@ -225,7 +247,13 @@ func look_right() -> void:
 #region ANIMATION
 
 func play_idle() -> void: animation.play("idle")
-func play_walk() -> void: animation.play("walk")
+func play_walk() -> void:
+	running_sound.play()
+	animation.play("walk")
 func play_jump() -> void: animation.play("jump")
 
 #endregion
+
+
+func _on_walking_state_exited() -> void:
+	running_sound.stop()

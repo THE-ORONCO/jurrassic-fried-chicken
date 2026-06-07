@@ -2,11 +2,16 @@
 
 [ext_resource type="Script" uid="uid://1lekjw4sdgck" path="res://entities/player/player.gd" id="1_qiwj3"]
 [ext_resource type="Texture2D" uid="uid://b7gkjndmb07th" path="res://assets/player_sprites_idle.png" id="2_bectd"]
+[ext_resource type="AudioStream" uid="uid://dnr32vg20ukyo" path="res://assets/Sounds/damage.wav" id="2_gx6sm"]
+[ext_resource type="AudioStream" uid="uid://oynq51toj4rn" path="res://assets/Sounds/running_sound.mp3" id="2_yqrof"]
 [ext_resource type="Texture2D" uid="uid://b2u8nkxttrtmi" path="res://assets/player_sprites_jump.png" id="3_7thud"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_bectd"]
+[ext_resource type="AudioStream" uid="uid://bjn44lwk7nf1g" path="res://assets/Sounds/dash.wav" id="3_yqrof"]
 [ext_resource type="Texture2D" uid="uid://jijoj3dj0c2o" path="res://assets/player_sprites_walk.png" id="4_a1qjk"]
+[ext_resource type="AudioStream" uid="uid://c4dauyjmu0i1q" path="res://assets/Sounds/flutter.mp3" id="4_gx6sm"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="4_wvtmh"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_7thud"]
+[ext_resource type="AudioStream" uid="uid://crqluet32w6ts" path="res://assets/Sounds/jump.wav" id="5_b2kln"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="6_a1qjk"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="7_j3ovn"]
 [ext_resource type="Script" uid="uid://le5w1cm0ul8p" path="res://addons/godot_state_charts/expression_guard.gd" id="8_26q78"]
@@ -523,6 +528,33 @@ collision_layer = 2
 script = ExtResource("1_qiwj3")
 metadata/_custom_type_script = "uid://1lekjw4sdgck"
 
+[node name="Running" type="AudioStreamPlayer" parent="." unique_id=279878596]
+stream = ExtResource("2_yqrof")
+volume_db = -9.505
+bus = &"Sfx"
+
+[node name="Damage" type="AudioStreamPlayer" parent="." unique_id=1453759278]
+unique_name_in_owner = true
+stream = ExtResource("2_gx6sm")
+bus = &"Sfx"
+
+[node name="Dash" type="AudioStreamPlayer" parent="." unique_id=1623216025]
+unique_name_in_owner = true
+stream = ExtResource("3_yqrof")
+volume_db = 11.699
+bus = &"Sfx"
+
+[node name="Flutter" type="AudioStreamPlayer" parent="." unique_id=1893227688]
+unique_name_in_owner = true
+stream = ExtResource("4_gx6sm")
+volume_db = 24.0
+bus = &"Sfx"
+
+[node name="Jump" type="AudioStreamPlayer" parent="." unique_id=1821252440]
+unique_name_in_owner = true
+stream = ExtResource("5_b2kln")
+bus = &"Sfx"
+
 [node name="Animation" type="AnimatedSprite2D" parent="." unique_id=425175978]
 unique_name_in_owner = true
 texture_filter = 1
@@ -836,6 +868,8 @@ wait_time = 0.05
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Airborne" to="." method="_on_airborne_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Airborne" to="." method="move_horizontal"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Airborne" to="." method="_apply_gravity_physics_process"]
+[connection signal="state_entered" from="StateChart/Root/Jumping/Air/Gliding" to="." method="_on_gliding_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Jumping/Air/Gliding" to="." method="_on_gliding_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Gliding" to="." method="_on_gliding_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Gliding" to="." method="move_horizontal"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Gliding" to="." method="_apply_gravity_physics_process"]
@@ -845,6 +879,7 @@ wait_time = 0.05
 [connection signal="state_physics_processing" from="StateChart/Root/Dashing/Dashing" to="." method="_on_dashing_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Visuals/Animation/Idle" to="." method="play_idle"]
 [connection signal="state_entered" from="StateChart/Root/Visuals/Animation/Walking" to="." method="play_walk"]
+[connection signal="state_exited" from="StateChart/Root/Visuals/Animation/Walking" to="." method="_on_walking_state_exited"]
 [connection signal="state_entered" from="StateChart/Root/Visuals/Animation/Air" to="." method="play_jump"]
 [connection signal="state_physics_processing" from="StateChart/Root/Visuals/Look" to="." method="look_physics_process"]
 [connection signal="state_entered" from="StateChart/Root/Visuals/Look/Left" to="." method="look_left"]
