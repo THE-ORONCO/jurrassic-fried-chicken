@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://7t8nimwt3y8y"]
+
+[ext_resource type="Script" uid="uid://cdm1v53we7tcy" path="res://entities/pepper/pepper_mill.gd" id="1_08j0h"]
+[ext_resource type="Texture2D" uid="uid://wn2yxrsfl2s" path="res://assets/pepperhand_ugly.png" id="2_hubqo"]
+[ext_resource type="Script" uid="uid://b116xu2wb0hva" path="res://entities/bullet_spawner.gd" id="4_t0fgp"]
+[ext_resource type="PackedScene" uid="uid://v1jv1bd80ov8" path="res://entities/pepper/pepper.tscn" id="5_fdk8d"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="6_pg2ps"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="7_fcjtn"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="8_15tl0"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="9_3axap"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqm0c"]
+atlas = ExtResource("2_hubqo")
+region = Rect2(0, 0, 1920, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48ea6"]
+atlas = ExtResource("2_hubqo")
+region = Rect2(1920, 0, 1920, 1080)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_33cff"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqm0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48ea6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_tokqt"]
+resource_name = "show"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qmh37"]
+_data = {
+&"show": SubResource("Animation_tokqt")
+}
+
+[node name="PepperAttack" type="Node2D" unique_id=2104533174]
+script = ExtResource("1_08j0h")
+
+[node name="PepperArm" type="Node2D" parent="." unique_id=1312234919]
+unique_name_in_owner = true
+
+[node name="Offset" type="Node2D" parent="PepperArm" unique_id=85163393]
+unique_name_in_owner = true
+
+[node name="SpawnPoint" type="Marker2D" parent="PepperArm/Offset" unique_id=1376593231]
+position = Vector2(1, 223)
+
+[node name="SpawnPoint2" type="Marker2D" parent="PepperArm/Offset" unique_id=1982269558]
+position = Vector2(23, 223)
+
+[node name="SpawnPoint3" type="Marker2D" parent="PepperArm/Offset" unique_id=389225632]
+position = Vector2(44, 223)
+
+[node name="SpawnPoint4" type="Marker2D" parent="PepperArm/Offset" unique_id=1722124720]
+position = Vector2(-21, 223)
+
+[node name="SpawnPoint5" type="Marker2D" parent="PepperArm/Offset" unique_id=1866678141]
+position = Vector2(-42, 223)
+
+[node name="Animation" type="AnimatedSprite2D" parent="PepperArm/Offset" unique_id=931095429]
+z_index = 1
+position = Vector2(-24, -29)
+sprite_frames = SubResource("SpriteFrames_33cff")
+autoplay = "default"
+frame_progress = 0.956349
+offset = Vector2(819.68, 550)
+
+[node name="Timer" type="Timer" parent="." unique_id=1585577684]
+unique_name_in_owner = true
+
+[node name="BulletSpawner" type="Node" parent="." unique_id=856172531 node_paths=PackedStringArray("spawn_points")]
+unique_name_in_owner = true
+script = ExtResource("4_t0fgp")
+bullet = ExtResource("5_fdk8d")
+spawn_points = [NodePath("../PepperArm/Offset/SpawnPoint5"), NodePath("../PepperArm/Offset/SpawnPoint4"), NodePath("../PepperArm/Offset/SpawnPoint3"), NodePath("../PepperArm/Offset/SpawnPoint2"), NodePath("../PepperArm/Offset/SpawnPoint")]
+metadata/_custom_type_script = "uid://b116xu2wb0hva"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1356844561]
+libraries/ = SubResource("AnimationLibrary_qmh37")
+
+[node name="StateChart" type="Node" parent="." unique_id=1008272724]
+unique_name_in_owner = true
+script = ExtResource("6_pg2ps")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="CompoundState" type="Node" parent="StateChart" unique_id=472497184]
+script = ExtResource("7_fcjtn")
+initial_state = NodePath("Hiding")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Hiding" type="Node" parent="StateChart/CompoundState" unique_id=711865248]
+script = ExtResource("8_15tl0")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="OnShow" type="Node" parent="StateChart/CompoundState/Hiding" unique_id=1084957266]
+script = ExtResource("9_3axap")
+to = NodePath("../../Showing")
+event = &"show"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Showing" type="Node" parent="StateChart/CompoundState" unique_id=1442463975]
+script = ExtResource("8_15tl0")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="OnVisible" type="Node" parent="StateChart/CompoundState/Showing" unique_id=1382025798]
+script = ExtResource("9_3axap")
+to = NodePath("../../Attacking")
+event = &"visible"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Attacking" type="Node" parent="StateChart/CompoundState" unique_id=875894773]
+script = ExtResource("8_15tl0")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="OnFinsihedAttacking" type="Node" parent="StateChart/CompoundState/Attacking" unique_id=266695881]
+script = ExtResource("9_3axap")
+to = NodePath("../../Hiding")
+delay_in_seconds = "10."
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[connection signal="state_physics_processing" from="StateChart/CompoundState/Hiding" to="." method="_on_hiding_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/CompoundState/Showing" to="." method="_on_showing_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/CompoundState/Showing" to="." method="_on_showing_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/CompoundState/Showing" to="." method="_tracking_physics_process"]
+[connection signal="state_entered" from="StateChart/CompoundState/Attacking" to="." method="_on_attacking_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/Attacking" to="." method="_on_attacking_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/CompoundState/Attacking" to="." method="_on_attacking_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/CompoundState/Attacking" to="." method="_tracking_physics_process"]

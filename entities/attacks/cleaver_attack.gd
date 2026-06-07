@@ -1,7 +1,6 @@
 class_name CleaverAttack
-extends Node2D
+extends Attack
 
-@export var shake_amount := .8
 
 @onready var hitbox: Area2D = %Hitbox
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -9,6 +8,10 @@ extends Node2D
 
 func _ready() -> void:
 	hitbox.body_entered.connect(handle_hit)
+	animation_player.animation_finished.connect(func(anim):
+		if anim == "retract":
+			attack_finished.emit()
+		)
 
 func attack(speed := 1) -> void:
 	animation_player.speed_scale = speed
