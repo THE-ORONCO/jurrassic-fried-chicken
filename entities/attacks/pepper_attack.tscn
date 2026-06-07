@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://cdditp1mintnh"]
+
+[ext_resource type="Script" uid="uid://cdm1v53we7tcy" path="res://entities/pepper/pepper_mill.gd" id="1_y6hq3"]
+[ext_resource type="Script" uid="uid://b116xu2wb0hva" path="res://entities/bullet_spawner.gd" id="2_pauek"]
+[ext_resource type="PackedScene" uid="uid://v1jv1bd80ov8" path="res://entities/pepper/pepper.tscn" id="3_vq2l5"]
+[ext_resource type="Texture2D" uid="uid://wn2yxrsfl2s" path="res://assets/pepperhand_ugly.png" id="4_byjc3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqm0c"]
+atlas = ExtResource("4_byjc3")
+region = Rect2(0, 0, 1920, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48ea6"]
+atlas = ExtResource("4_byjc3")
+region = Rect2(1920, 0, 1920, 1080)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_33cff"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqm0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48ea6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PepperAttack" type="Node2D" unique_id=1751305710]
+script = ExtResource("1_y6hq3")
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1003748325]
+position = Vector2(1, 223)
+
+[node name="SpawnPoint2" type="Marker2D" parent="." unique_id=2048286918]
+position = Vector2(23, 223)
+
+[node name="SpawnPoint3" type="Marker2D" parent="." unique_id=979302830]
+position = Vector2(44, 223)
+
+[node name="SpawnPoint4" type="Marker2D" parent="." unique_id=681194894]
+position = Vector2(-21, 223)
+
+[node name="SpawnPoint5" type="Marker2D" parent="." unique_id=283333529]
+position = Vector2(-42, 223)
+
+[node name="Timer" type="Timer" parent="." unique_id=1515897042]
+unique_name_in_owner = true
+autostart = true
+
+[node name="BulletSpawner" type="Node" parent="." unique_id=1338320850 node_paths=PackedStringArray("spawn_points")]
+unique_name_in_owner = true
+script = ExtResource("2_pauek")
+bullet = ExtResource("3_vq2l5")
+spawn_points = [NodePath("../SpawnPoint5"), NodePath("../SpawnPoint4"), NodePath("../SpawnPoint3"), NodePath("../SpawnPoint2"), NodePath("../SpawnPoint")]
+metadata/_custom_type_script = "uid://b116xu2wb0hva"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2044956880]
+z_index = 1
+position = Vector2(-24, -29)
+sprite_frames = SubResource("SpriteFrames_33cff")
+autoplay = "default"
+frame_progress = 0.956349
+offset = Vector2(819.68, 550)

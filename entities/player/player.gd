@@ -1,9 +1,12 @@
+class_name Player
 extends CharacterBody2D
 
 signal landed_on_floor
 signal left_floor
 signal start_walk
 signal stop_walk
+signal took_damage
+signal was_hit(shake: float)
 
 @export_category("ground movement")
 @export_range(1., 1000.) var move_speed := 300.0
@@ -23,6 +26,8 @@ signal stop_walk
 
 @onready var state_chart: StateChart = %StateChart
 @onready var animation: AnimatedSprite2D = %Animation
+@onready var invincibility_timer: Timer = %InvincibilityTimer
+@onready var blink_timer: Timer = %BlinkTimer
 
 @onready var _gravity_factor := normal_gravity_factor
 
@@ -42,6 +47,8 @@ var _dash_dir := Vector2.UP
 var _dash_vel := Vector2.ZERO
 var _look := LookDir.RIGHT
 
+
+
 func _ready() -> void:
 	_was_on_floor = is_on_floor()
 	landed_on_floor.connect(func(): state_chart.send_event("landed_on_floor"))
@@ -50,6 +57,23 @@ func _ready() -> void:
 	stop_walk.connect(func(): state_chart.send_event("stop_walk"))
 
 	_update_chart_props()
+	
+	invincibility_timer.timeout.connect(stop_blink)
+	blink_timer.timeout.connect(func(): animation.visible = !animation.visible)
+	
+func take_damage(amount:= .5) -> void:
+	was_hit.emit(amount)
+	if invincibility_timer.is_stopped():
+		took_damage.emit()
+		invincibility_timer.start()
+		start_blink()
+
+func start_blink() -> void:
+	blink_timer.start()
+
+func stop_blink() -> void:
+	blink_timer.stop()
+	animation.show()
 
 func _update_chart_props(a: Variant = null) -> Variant:
 	if state_chart:
@@ -90,7 +114,6 @@ func _map_input_to_statechart() -> void:
 func _apply_gravity_physics_process(delta: float) -> void:
 	if !is_on_floor():
 		velocity += get_gravity() * delta
-
 
 func move_horizontal(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")

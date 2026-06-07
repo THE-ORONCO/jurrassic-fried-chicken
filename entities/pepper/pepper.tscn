@@ -3,9 +3,16 @@
 [ext_resource type="Script" uid="uid://dem8f81to6ma5" path="res://entities/pepper/pepper.gd" id="1_hma23"]
 [ext_resource type="Script" uid="uid://dsfutl0hddf6n" path="res://entities/bullet_mover.gd" id="2_vselg"]
 [ext_resource type="Texture2D" uid="uid://ddp55tpps8yxw" path="res://assets/pepper_pebble_ugly.png" id="3_hma23"]
+[ext_resource type="Shader" uid="uid://dicp02urloeeh" path="res://entities/pepper/pepper.gdshader" id="4_vselg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c5rd0"]
 radius = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vselg"]
+shader = ExtResource("4_vselg")
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 2.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
 
 [node name="Pepper" type="Area2D" unique_id=203596650]
 collision_layer = 0
@@ -17,8 +24,10 @@ script = ExtResource("2_vselg")
 moved_entity = NodePath("..")
 metadata/_custom_type_script = "uid://dsfutl0hddf6n"
 
-[node name="Icon" type="Sprite2D" parent="." unique_id=1387770657]
-texture = ExtResource("3_hma23")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1426047486]
 shape = SubResource("CircleShape2D_c5rd0")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1387770657]
+texture_filter = 2
+material = SubResource("ShaderMaterial_vselg")
+texture = ExtResource("3_hma23")

@@ -1,20 +1,22 @@
 [gd_scene format=3 uid="uid://bvns7kooakilb"]
 
 [ext_resource type="Script" uid="uid://ch2tgp1wjb8ta" path="res://levels/kitchen.gd" id="1_a8v1b"]
-[ext_resource type="Texture2D" uid="uid://jiuno5jwth2m" path="res://icon.svg" id="1_dsnqk"]
 [ext_resource type="PackedScene" uid="uid://wfj7l6fjl41y" path="res://entities/player/player.tscn" id="2_8s7oc"]
+[ext_resource type="Script" uid="uid://cflteopy1d3tl" path="res://entities/chef/chef.gd" id="2_bxbpt"]
 [ext_resource type="Texture2D" uid="uid://u7qq78m0t42q" path="res://assets/Chef_grab_weapon.png" id="2_vkim1"]
 [ext_resource type="Texture2D" uid="uid://p0tuibrji3wg" path="res://assets/Chef_attack.png" id="3_pnyds"]
 [ext_resource type="Texture2D" uid="uid://ci1pbbw8ki313" path="res://assets/Chef_scarf.png" id="4_bxbpt"]
-[ext_resource type="PackedScene" uid="uid://v1jv1bd80ov8" path="res://entities/pepper/pepper.tscn" id="4_c5rd0"]
 [ext_resource type="Texture2D" uid="uid://dioiodq5ymnca" path="res://assets/Chef_head.png" id="5_ct8bv"]
-[ext_resource type="Script" uid="uid://cdm1v53we7tcy" path="res://entities/pepper/pepper_mill.gd" id="5_yg3w2"]
-[ext_resource type="Script" uid="uid://b116xu2wb0hva" path="res://entities/bullet_spawner.gd" id="6_yg3w2"]
 [ext_resource type="PackedScene" uid="uid://bspt8qg2xp2i2" path="res://entities/burner/burner.tscn" id="7_j37k6"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="8_a8v1b"]
-[ext_resource type="Texture2D" uid="uid://wn2yxrsfl2s" path="res://assets/pepperhand_ugly.png" id="8_amo3k"]
-[ext_resource type="Script" uid="uid://cfqcbsmyjvmvm" path="res://entities/attacks/cleaver_attack.gd" id="10_48ea6"]
-[ext_resource type="Texture2D" uid="uid://f0bsq5q2yq2o" path="res://assets/cleaverhand_ugly_crooked_cleaver.png" id="10_vqm0c"]
+[ext_resource type="PackedScene" uid="uid://7t8nimwt3y8y" path="res://levels/pepper_attack.tscn" id="8_pnyds"]
+[ext_resource type="PackedScene" uid="uid://dy1hiktemb081" path="res://entities/attacks/cleaver_attack.tscn" id="10_y0npq"]
+[ext_resource type="Script" uid="uid://dxj1wfdybibyf" path="res://entities/table/table.gd" id="11_bxbpt"]
+[ext_resource type="Texture2D" uid="uid://bf165alvf6bbk" path="res://assets/kitchenboard_cutout.png" id="12_y0npq"]
+[ext_resource type="Texture2D" uid="uid://va3d8vmu50vl" path="res://assets/kitchenboard_full.png" id="13_vkim1"]
+[ext_resource type="PackedScene" uid="uid://dnkobp6ndqbln" path="res://entities/attacks/hammer_attack.tscn" id="13_xsnc5"]
+[ext_resource type="Script" uid="uid://cugq46tmwr2hl" path="res://levels/camera.gd" id="16_pnyds"]
+[ext_resource type="PackedScene" uid="uid://nxyehjybuxxf" path="res://UI/player_health.tscn" id="18_ct8bv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xsnc5"]
 animations = [{
@@ -36,115 +38,22 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8v1b"]
-size = Vector2(1936, 248)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vqm0c"]
-atlas = ExtResource("8_amo3k")
-region = Rect2(0, 0, 1920, 1080)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_48ea6"]
-atlas = ExtResource("8_amo3k")
-region = Rect2(1920, 0, 1920, 1080)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_33cff"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vqm0c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_48ea6")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_48ea6"]
-size = Vector2(180, 334)
-
-[sub_resource type="Animation" id="Animation_48ea6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hand:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(2100, 400)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("%HitShape:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_33cff"]
-resource_name = "attack"
-length = 2.9666667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hand:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.2333333, 2.9333334),
-"transitions": PackedFloat32Array(0.22531293, 2.5491211, 0.55478424),
-"update": 0,
-"values": [Vector2(2100, 400), Vector2(1797.645, 400), Vector2(238, 401)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("%HitShape:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 2.9333334),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
-[sub_resource type="Animation" id="Animation_x7hu8"]
-resource_name = "retract"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hand:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(238, 401), Vector2(400, 200), Vector2(2000, 100)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_x7hu8"]
-_data = {
-&"RESET": SubResource("Animation_48ea6"),
-&"attack": SubResource("Animation_33cff"),
-&"retract": SubResource("Animation_x7hu8")
-}
+size = Vector2(1728, 248)
 
 [node name="Kitchen" type="Node2D" unique_id=1677156133]
 script = ExtResource("1_a8v1b")
 
-[node name="Chef" type="Node2D" parent="." unique_id=772427980]
+[node name="PlayerHealth" parent="." unique_id=1819893308 node_paths=PackedStringArray("player") instance=ExtResource("18_ct8bv")]
+player = NodePath("../Player")
+
+[node name="Chef" type="Node2D" parent="." unique_id=2062955559 node_paths=PackedStringArray("camera", "left_attacks", "right_attacks")]
 position = Vector2(925, 503)
+script = ExtResource("2_bxbpt")
+camera = NodePath("../Camera")
+left_attacks = [NodePath("Attacks/L/PepperAttackL"), NodePath("Attacks/L/CleaverAttackL"), NodePath("Attacks/L/HammerAttackL")]
+right_attacks = [NodePath("Attacks/R/HammerAttackR"), NodePath("Attacks/R/PepperAttackR"), NodePath("Attacks/R/CleaverAttackR")]
+attack_cooldown = 0.1
+metadata/_custom_type_script = "uid://cflteopy1d3tl"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chef" unique_id=1108160508]
 sprite_frames = SubResource("SpriteFrames_xsnc5")
@@ -156,103 +65,105 @@ texture = ExtResource("4_bxbpt")
 [node name="ChefHead" type="Sprite2D" parent="Chef" unique_id=500472237]
 texture = ExtResource("5_ct8bv")
 
-[node name="Table2" type="StaticBody2D" parent="." unique_id=881072840]
-position = Vector2(959, 924)
+[node name="Attacks" type="Node2D" parent="Chef" unique_id=899749734]
+position = Vector2(-925, -503)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Table2" unique_id=809793046]
-position = Vector2(1, 0)
+[node name="L" type="Node2D" parent="Chef/Attacks" unique_id=1917391063]
+
+[node name="LCooldown" type="Timer" parent="Chef/Attacks/L" unique_id=896621440]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="PepperAttackL" parent="Chef/Attacks/L" unique_id=2104533174 node_paths=PackedStringArray("target", "spawn_container") instance=ExtResource("8_pnyds")]
+unique_name_in_owner = true
+position = Vector2(960, 0)
+rotation = 3.1415927
+scale = Vector2(1, -1)
+target = NodePath("../../../../Player")
+spawn_container = NodePath("../../../..")
+
+[node name="CleaverAttackL" parent="Chef/Attacks/L" unique_id=803243789 instance=ExtResource("10_y0npq")]
+unique_name_in_owner = true
+position = Vector2(960, 675)
+rotation = 3.1415927
+scale = Vector2(1, -1)
+
+[node name="HammerAttackL" parent="Chef/Attacks/L" unique_id=1023088986 node_paths=PackedStringArray("cam", "target") instance=ExtResource("13_xsnc5")]
+unique_name_in_owner = true
+position = Vector2(960, 0)
+rotation = 3.1415927
+scale = Vector2(1, -1)
+cam = NodePath("../../../../Camera")
+target = NodePath("../../../../Player")
+
+[node name="R" type="Node2D" parent="Chef/Attacks" unique_id=975734831]
+
+[node name="RCooldown" type="Timer" parent="Chef/Attacks/R" unique_id=1927546494]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="HammerAttackR" parent="Chef/Attacks/R" unique_id=1126839076 node_paths=PackedStringArray("cam", "target") instance=ExtResource("13_xsnc5")]
+unique_name_in_owner = true
+position = Vector2(960, 0)
+cam = NodePath("../../../../Camera")
+target = NodePath("../../../../Player")
+
+[node name="PepperAttackR" parent="Chef/Attacks/R" unique_id=110460612 node_paths=PackedStringArray("target", "spawn_container") instance=ExtResource("8_pnyds")]
+unique_name_in_owner = true
+position = Vector2(960, 0)
+target = NodePath("../../../../Player")
+spawn_container = NodePath("../../../..")
+
+[node name="CleaverAttackR" parent="Chef/Attacks/R" unique_id=128461842 instance=ExtResource("10_y0npq")]
+unique_name_in_owner = true
+position = Vector2(960, 675)
+
+[node name="Table" type="StaticBody2D" parent="." unique_id=881072840 node_paths=PackedStringArray("burners")]
+position = Vector2(959, 886.655)
+script = ExtResource("11_bxbpt")
+burners = [NodePath("Burner"), NodePath("Burner2"), NodePath("Burner3")]
+burner_delay = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table" unique_id=809793046]
+position = Vector2(0, 181)
 shape = SubResource("RectangleShape2D_a8v1b")
 
-[node name="Icon" type="Sprite2D" parent="Table2" unique_id=1815406039]
-scale = Vector2(15.455829, 1.9453125)
-texture = ExtResource("1_dsnqk")
+[node name="Burner" parent="Table" unique_id=830126126 instance=ExtResource("7_j37k6")]
+unique_name_in_owner = true
+position = Vector2(-512, 122)
+
+[node name="Burner2" parent="Table" unique_id=186028676 instance=ExtResource("7_j37k6")]
+position = Vector2(0, 122)
+
+[node name="Burner3" parent="Table" unique_id=66620177 instance=ExtResource("7_j37k6")]
+position = Vector2(512, 122)
+
+[node name="KitchenboardCutout" type="Sprite2D" parent="Table" unique_id=939074466]
+texture = ExtResource("12_y0npq")
+offset = Vector2(0, -384.594)
+
+[node name="KitchenboardFull" type="Sprite2D" parent="Table" unique_id=1288875256]
+texture = ExtResource("13_vkim1")
+offset = Vector2(0, -319.325)
+
+[node name="BurnerCooldown" type="Timer" parent="Table" unique_id=1121920704]
+unique_name_in_owner = true
+one_shot = true
 
 [node name="Player" parent="." unique_id=1422934049 instance=ExtResource("2_8s7oc")]
 position = Vector2(654, 706)
 
 [node name="StateChartDebugger" parent="." unique_id=1408026270 instance=ExtResource("8_a8v1b")]
-offset_left = 18.0
-offset_top = 19.0
-offset_right = 489.0
-offset_bottom = 585.0
-initial_node_to_watch = NodePath("../Player/StateChart")
+texture_filter = 2
+offset_left = 45.0
+offset_top = 201.0
+offset_right = 516.0
+offset_bottom = 767.0
+initial_node_to_watch = NodePath("../Chef/Attacks/L/PepperAttackL/StateChart")
 
-[node name="Pepper" parent="." unique_id=203596650 instance=ExtResource("4_c5rd0")]
-position = Vector2(779, -20)
-
-[node name="PepperMill" type="Node2D" parent="." unique_id=1630805108]
-position = Vector2(1071, 19)
-script = ExtResource("5_yg3w2")
-
-[node name="SpawnPoint" type="Marker2D" parent="PepperMill" unique_id=22533863]
-position = Vector2(1, 223)
-
-[node name="SpawnPoint2" type="Marker2D" parent="PepperMill" unique_id=214142823]
-position = Vector2(23, 223)
-
-[node name="SpawnPoint3" type="Marker2D" parent="PepperMill" unique_id=1021081643]
-position = Vector2(44, 223)
-
-[node name="SpawnPoint4" type="Marker2D" parent="PepperMill" unique_id=506693603]
-position = Vector2(-21, 223)
-
-[node name="SpawnPoint5" type="Marker2D" parent="PepperMill" unique_id=620925808]
-position = Vector2(-42, 223)
-
-[node name="Timer" type="Timer" parent="PepperMill" unique_id=1671331967]
+[node name="Camera" type="Camera2D" parent="." unique_id=1971582083 node_paths=PackedStringArray("target")]
 unique_name_in_owner = true
-autostart = true
-
-[node name="BulletSpawner" type="Node" parent="PepperMill" unique_id=1048601324 node_paths=PackedStringArray("spawn_container", "spawn_points")]
-unique_name_in_owner = true
-script = ExtResource("6_yg3w2")
-spawn_container = NodePath("../..")
-bullet = ExtResource("4_c5rd0")
-spawn_points = [NodePath("../SpawnPoint5"), NodePath("../SpawnPoint4"), NodePath("../SpawnPoint3"), NodePath("../SpawnPoint2"), NodePath("../SpawnPoint")]
-metadata/_custom_type_script = "uid://b116xu2wb0hva"
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PepperMill" unique_id=1460496590]
-z_index = 1
-position = Vector2(-24, -29)
-sprite_frames = SubResource("SpriteFrames_33cff")
-autoplay = "default"
-frame_progress = 0.956349
-offset = Vector2(819.68, 550)
-
-[node name="Burner" parent="." unique_id=830126126 instance=ExtResource("7_j37k6")]
-position = Vector2(237, 789)
-
-[node name="Burner2" parent="." unique_id=186028676 instance=ExtResource("7_j37k6")]
-position = Vector2(819, 743)
-
-[node name="CleaverAttack" type="Node2D" parent="." unique_id=1626957238]
-script = ExtResource("10_48ea6")
-
-[node name="Hand" type="Node2D" parent="CleaverAttack" unique_id=1742362232]
-position = Vector2(2100, 400)
-
-[node name="CleaverhandUglyCrookedCleaver" type="Sprite2D" parent="CleaverAttack/Hand" unique_id=851590629]
-texture = ExtResource("10_vqm0c")
-offset = Vector2(776.175, -28.675)
-
-[node name="Hitbox" type="Area2D" parent="CleaverAttack/Hand" unique_id=1776971973]
-unique_name_in_owner = true
-position = Vector2(22, 231)
-rotation = -0.30834675
-collision_layer = 0
-collision_mask = 2
-
-[node name="HitShape" type="CollisionShape2D" parent="CleaverAttack/Hand/Hitbox" unique_id=1633474240]
-unique_name_in_owner = true
-shape = SubResource("RectangleShape2D_48ea6")
-disabled = true
-
-[node name="Body" type="AnimatableBody2D" parent="CleaverAttack/Hand" unique_id=103746941]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CleaverAttack/Hand/Body" unique_id=48970676]
-polygon = PackedVector2Array(43, -57, 1661, -55, 1665, 46, 52, 46, -44, 76, -78, -41, -91, -97, -43, -128, -15, -75, 26, -81)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CleaverAttack" unique_id=1595486856]
-libraries/ = SubResource("AnimationLibrary_x7hu8")
-next/attack = &"retract"
-next/retract = &"RESET"
+anchor_mode = 0
+script = ExtResource("16_pnyds")
+target = NodePath("../Player")
+metadata/_custom_type_script = "uid://cugq46tmwr2hl"

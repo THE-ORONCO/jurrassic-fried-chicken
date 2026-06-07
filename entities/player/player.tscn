@@ -518,9 +518,10 @@ script = ExtResource("8_26q78")
 expression = "is_on_floor == true"
 metadata/_custom_type_script = "uid://le5w1cm0ul8p"
 
-[node name="Player" type="CharacterBody2D" unique_id=1422934049]
+[node name="Player" type="CharacterBody2D" unique_id=756183677]
 collision_layer = 2
 script = ExtResource("1_qiwj3")
+metadata/_custom_type_script = "uid://1lekjw4sdgck"
 
 [node name="Animation" type="AnimatedSprite2D" parent="." unique_id=425175978]
 unique_name_in_owner = true
@@ -813,14 +814,22 @@ event = &"input_left"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
+[node name="InvincibilityTimer" type="Timer" parent="." unique_id=1491576002]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="BlinkTimer" type="Timer" parent="." unique_id=185933409]
+unique_name_in_owner = true
+wait_time = 0.05
+
 [connection signal="state_entered" from="StateChart/Root/Jumping/Ground" to="." method="_on_ground_state_entered"]
 [connection signal="state_exited" from="StateChart/Root/Jumping/Ground" to="." method="_on_ground_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Ground" to="." method="_on_jump_enabled_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Ground" to="." method="move_horizontal"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Ground" to="." method="_apply_gravity_physics_process"]
 [connection signal="state_entered" from="StateChart/Root/Jumping/Jumping" to="." method="_on_jumping_state_entered"]
-[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Jumping" to="." method="move_horizontal"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Jumping" to="." method="_on_jumping_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Jumping/Jumping" to="." method="move_horizontal"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Coyote" to="." method="_on_jump_enabled_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Coyote" to="." method="move_horizontal"]
 [connection signal="state_physics_processing" from="StateChart/Root/Jumping/Air/Coyote" to="." method="_apply_gravity_physics_process"]
