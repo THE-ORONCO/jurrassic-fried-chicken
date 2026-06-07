@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://byndqwuk4jutl"]
+
+[ext_resource type="FontFile" uid="uid://dao1y8u1vw0tq" path="res://UI/Eras Bold ITC Regular.ttf" id="1_83sw7"]
+[ext_resource type="Script" uid="uid://bseseo2i4k78p" path="res://UI/lose_screen.gd" id="1_omspb"]
+[ext_resource type="VideoStream" uid="uid://wjht6tgegn4g" path="res://assets/death.ogv" id="3_0iwc1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_omspb"]
+bg_color = Color(0.09411765, 0.26666668, 0.76862746, 1)
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.3019608, 0.7372549, 0.99215686, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0iwc1"]
+bg_color = Color(0.09411765, 0.26666668, 0.76862746, 1)
+border_width_left = 8
+border_width_top = 8
+border_color = Color(0.14509805, 0.08235294, 0.627451, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0i376"]
+bg_color = Color(0.16543114, 0.36026147, 0.8804419, 1)
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.3019608, 0.7372549, 0.99215686, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 16
+
+[node name="LoseScreen" type="Node2D" unique_id=1578937918]
+script = ExtResource("1_omspb")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=46066258]
+offset_right = 1920.0
+offset_bottom = 1080.0
+stream = ExtResource("3_0iwc1")
+autoplay = true
+
+[node name="Control" type="Control" parent="." unique_id=2103389580]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Try Again" type="Button" parent="Control" unique_id=331542099]
+layout_mode = 0
+offset_left = 590.0
+offset_top = 901.0
+offset_right = 917.0
+offset_bottom = 1002.0
+theme_override_fonts/font = ExtResource("1_83sw7")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_omspb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0iwc1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0i376")
+text = "Try Again"
+
+[node name="Exit" type="Button" parent="Control" unique_id=1256588090]
+layout_mode = 0
+offset_left = 1021.0
+offset_top = 902.0
+offset_right = 1214.0
+offset_bottom = 1003.0
+theme_override_fonts/font = ExtResource("1_83sw7")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_omspb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0iwc1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0i376")
+text = "Quit"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control" unique_id=1617058288]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 582.0
+offset_right = 1788.0
+offset_bottom = 906.0
+theme_override_fonts/normal_font = ExtResource("1_83sw7")
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "Not the dinosaur you wanted to be..."
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Control/Try Again" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Control/Exit" to="." method="_on_exit_pressed"]
