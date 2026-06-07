@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://cjqf5x6tgp6c4"]
+
+[ext_resource type="Texture2D" uid="uid://dthmiog4f8h28" path="res://assets/WinScreen.png" id="1_t25dr"]
+[ext_resource type="Script" uid="uid://dentqs31j773u" path="res://UI/win_screen.gd" id="1_w024j"]
+[ext_resource type="FontFile" uid="uid://dao1y8u1vw0tq" path="res://UI/Eras Bold ITC Regular.ttf" id="2_7c84e"]
+[ext_resource type="AudioStream" uid="uid://b7pfra0eilhib" path="res://assets/Sounds/WinScreen.mp3" id="4_qpj51"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7c84e"]
+atlas = ExtResource("1_t25dr")
+region = Rect2(0, 0, 1920, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w024j"]
+atlas = ExtResource("1_t25dr")
+region = Rect2(0, 1080, 1920, 1080)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qpj51"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7c84e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w024j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w024j"]
+bg_color = Color(0.09411765, 0.26666668, 0.76862746, 1)
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.3019608, 0.7372549, 0.99215686, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpj51"]
+bg_color = Color(0.09411765, 0.26666668, 0.76862746, 1)
+border_width_left = 8
+border_width_top = 8
+border_color = Color(0.14509805, 0.08235294, 0.627451, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqmmh"]
+bg_color = Color(0.16543114, 0.36026147, 0.8804419, 1)
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.3019608, 0.7372549, 0.99215686, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 16
+
+[node name="WinScreen" type="Node2D" unique_id=951545271]
+script = ExtResource("1_w024j")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=105149760]
+sprite_frames = SubResource("SpriteFrames_qpj51")
+autoplay = "default"
+frame_progress = 0.72889555
+offset = Vector2(960, 540)
+
+[node name="Control" type="Control" parent="." unique_id=1707793802]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Start" type="Button" parent="Control" unique_id=619002959]
+layout_mode = 0
+offset_left = 672.0
+offset_top = 904.0
+offset_right = 863.0
+offset_bottom = 1005.0
+theme_override_fonts/font = ExtResource("2_7c84e")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_w024j")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qpj51")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oqmmh")
+text = "Start"
+
+[node name="Exit" type="Button" parent="Control" unique_id=939442506]
+layout_mode = 0
+offset_left = 975.0
+offset_top = 905.0
+offset_right = 1168.0
+offset_bottom = 1006.0
+theme_override_fonts/font = ExtResource("2_7c84e")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_w024j")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qpj51")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oqmmh")
+text = "Quit"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control" unique_id=1101967963]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 628.0
+offset_right = 1786.0
+offset_bottom = 932.0
+theme_override_fonts/normal_font = ExtResource("2_7c84e")
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "Wreak havoc!"
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=664050237]
+stream = ExtResource("4_qpj51")
+autoplay = true
+parameters/looping = true
+
+[connection signal="pressed" from="Control/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Control/Exit" to="." method="_on_exit_pressed"]
