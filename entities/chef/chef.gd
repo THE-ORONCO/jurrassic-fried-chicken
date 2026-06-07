@@ -13,7 +13,7 @@ extends Node2D
 var attack_r: Attack
 var attack_l: Attack
 
-var rage := 1.
+var rage := 0.8
 
 var _do_attack := false
 
