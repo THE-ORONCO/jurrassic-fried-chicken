@@ -15,7 +15,10 @@
 [ext_resource type="Texture2D" uid="uid://wn2yxrsfl2s" path="res://assets/pepperhand_ugly.png" id="8_amo3k"]
 [ext_resource type="PackedScene" uid="uid://dy1hiktemb081" path="res://entities/attacks/cleaver_attack.tscn" id="10_y0npq"]
 [ext_resource type="Texture2D" uid="uid://bf165alvf6bbk" path="res://assets/kitchenboard_cutout.png" id="12_y0npq"]
+[ext_resource type="Script" uid="uid://b4ru4csdg3qiw" path="res://entities/attacks/hammer_attack.gd" id="13_0cogh"]
+[ext_resource type="Texture2D" uid="uid://duaye7h2w4p7t" path="res://assets/hammerhand_ugly.png" id="13_8eye8"]
 [ext_resource type="Texture2D" uid="uid://va3d8vmu50vl" path="res://assets/kitchenboard_full.png" id="13_vkim1"]
+[ext_resource type="Texture2D" uid="uid://h3d4keqtqar8" path="res://assets/hammerhand_very_ugly.png" id="14_0cogh"]
 [ext_resource type="Script" uid="uid://cugq46tmwr2hl" path="res://levels/camera.gd" id="16_pnyds"]
 [ext_resource type="PackedScene" uid="uid://nxyehjybuxxf" path="res://UI/player_health.tscn" id="18_ct8bv"]
 
@@ -60,6 +63,184 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tokqt"]
+atlas = ExtResource("13_8eye8")
+region = Rect2(0, 0, 1920, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmh37"]
+atlas = ExtResource("13_8eye8")
+region = Rect2(1920, 0, 1920, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8iee3"]
+atlas = ExtResource("13_8eye8")
+region = Rect2(3840, 0, 1920, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vipav"]
+atlas = ExtResource("13_8eye8")
+region = Rect2(5760, 0, 1920, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3q7r8"]
+atlas = ExtResource("14_0cogh")
+region = Rect2(0, 0, 1920, 1080)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d8qaq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tokqt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmh37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8iee3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vipav")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3q7r8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q1177"]
+size = Vector2(175, 215)
+
+[sub_resource type="Animation" id="Animation_sgr54"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HammerArm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HammerArm/HammerHitBox/HammerHitShape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HammerArm/HammerArmSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_jwpeu"]
+resource_name = "attack"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HammerArm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 1.5666667, 2),
+"transitions": PackedFloat32Array(1, 0.11662923, 0.08838839, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -67.245), Vector2(-52, 839)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HammerArm/HammerArmSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 1.5, 1.5333333, 1.5666666, 1.6, 1.6333333, 1.6666666, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 2, 1, 0, 0, 1, 2, 3, 2, 1, 0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.6666666),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"impact"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0cogh"]
+resource_name = "recover"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HammerArm/HammerHitBox/HammerHitShape:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HammerArm:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(7.4642644, 1),
+"update": 0,
+"values": [Vector2(-52, 839), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1iyj4"]
+_data = {
+&"RESET": SubResource("Animation_sgr54"),
+&"attack": SubResource("Animation_jwpeu"),
+&"recover": SubResource("Animation_0cogh")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8v1b"]
 size = Vector2(1728, 248)
 
@@ -88,31 +269,31 @@ texture = ExtResource("5_ct8bv")
 [node name="Attacks" type="Node2D" parent="Chef" unique_id=899749734]
 position = Vector2(-925, -503)
 
-[node name="PepperMill" type="Node2D" parent="Chef/Attacks" unique_id=1630805108]
+[node name="Pepper" type="Node2D" parent="Chef/Attacks" unique_id=1630805108]
 unique_name_in_owner = true
 position = Vector2(1071, 19)
 script = ExtResource("5_yg3w2")
 
-[node name="SpawnPoint" type="Marker2D" parent="Chef/Attacks/PepperMill" unique_id=22533863]
+[node name="SpawnPoint" type="Marker2D" parent="Chef/Attacks/Pepper" unique_id=22533863]
 position = Vector2(1, 223)
 
-[node name="SpawnPoint2" type="Marker2D" parent="Chef/Attacks/PepperMill" unique_id=214142823]
+[node name="SpawnPoint2" type="Marker2D" parent="Chef/Attacks/Pepper" unique_id=214142823]
 position = Vector2(23, 223)
 
-[node name="SpawnPoint3" type="Marker2D" parent="Chef/Attacks/PepperMill" unique_id=1021081643]
+[node name="SpawnPoint3" type="Marker2D" parent="Chef/Attacks/Pepper" unique_id=1021081643]
 position = Vector2(44, 223)
 
-[node name="SpawnPoint4" type="Marker2D" parent="Chef/Attacks/PepperMill" unique_id=506693603]
+[node name="SpawnPoint4" type="Marker2D" parent="Chef/Attacks/Pepper" unique_id=506693603]
 position = Vector2(-21, 223)
 
-[node name="SpawnPoint5" type="Marker2D" parent="Chef/Attacks/PepperMill" unique_id=620925808]
+[node name="SpawnPoint5" type="Marker2D" parent="Chef/Attacks/Pepper" unique_id=620925808]
 position = Vector2(-42, 223)
 
-[node name="Timer" type="Timer" parent="Chef/Attacks/PepperMill" unique_id=1671331967]
+[node name="Timer" type="Timer" parent="Chef/Attacks/Pepper" unique_id=1671331967]
 unique_name_in_owner = true
 autostart = true
 
-[node name="BulletSpawner" type="Node" parent="Chef/Attacks/PepperMill" unique_id=1048601324 node_paths=PackedStringArray("spawn_container", "spawn_points")]
+[node name="BulletSpawner" type="Node" parent="Chef/Attacks/Pepper" unique_id=1048601324 node_paths=PackedStringArray("spawn_container", "spawn_points")]
 unique_name_in_owner = true
 script = ExtResource("6_yg3w2")
 spawn_container = NodePath("../../../..")
@@ -120,7 +301,7 @@ bullet = ExtResource("4_c5rd0")
 spawn_points = [NodePath("../SpawnPoint5"), NodePath("../SpawnPoint4"), NodePath("../SpawnPoint3"), NodePath("../SpawnPoint2"), NodePath("../SpawnPoint")]
 metadata/_custom_type_script = "uid://b116xu2wb0hva"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chef/Attacks/PepperMill" unique_id=1460496590]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chef/Attacks/Pepper" unique_id=1460496590]
 z_index = 1
 position = Vector2(-24, -29)
 sprite_frames = SubResource("SpriteFrames_33cff")
@@ -136,6 +317,35 @@ position = Vector2(960, 675)
 unique_name_in_owner = true
 position = Vector2(960, 675)
 scale = Vector2(-1, 1)
+
+[node name="Hammer" type="Node2D" parent="Chef/Attacks" unique_id=743263575 node_paths=PackedStringArray("cam")]
+position = Vector2(960, 0)
+scale = Vector2(-1, 1)
+script = ExtResource("13_0cogh")
+cam = NodePath("../../../Camera")
+
+[node name="HammerArm" type="Node2D" parent="Chef/Attacks/Hammer" unique_id=1755018837]
+
+[node name="HammerArmSprite" type="AnimatedSprite2D" parent="Chef/Attacks/Hammer/HammerArm" unique_id=86754939]
+position = Vector2(709.9999, -205)
+rotation = -0.3054217
+sprite_frames = SubResource("SpriteFrames_d8qaq")
+animation = &"attack"
+
+[node name="HammerHitBox" type="Area2D" parent="Chef/Attacks/Hammer/HammerArm" unique_id=855152400]
+position = Vector2(0, 10)
+collision_layer = 0
+collision_mask = 2
+
+[node name="HammerHitShape" type="CollisionShape2D" parent="Chef/Attacks/Hammer/HammerArm/HammerHitBox" unique_id=887743207]
+position = Vector2(-3.5, -10.5)
+shape = SubResource("RectangleShape2D_q1177")
+
+[node name="Animation" type="AnimationPlayer" parent="Chef/Attacks/Hammer" unique_id=375673102]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_1iyj4")
+autoplay = &"attack"
+next/attack = &"RESET"
 
 [node name="Table2" type="StaticBody2D" parent="." unique_id=881072840]
 position = Vector2(959, 886.655)

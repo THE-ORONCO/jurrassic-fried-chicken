@@ -1,3 +1,4 @@
+class_name Pepper
 extends Node2D
 
 @export var bullets_to_spawn := 10
