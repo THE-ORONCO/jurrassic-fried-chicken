@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://3vndqhu3lrgs"]
+
+[ext_resource type="Script" uid="uid://cj0rqmxkfya1j" path="res://UI/credit_screen.gd" id="1_fxswb"]
+[ext_resource type="Texture2D" uid="uid://fjn0lj666kfk" path="res://assets/Credits.png" id="1_xiyv3"]
+[ext_resource type="FontFile" uid="uid://dao1y8u1vw0tq" path="res://UI/Eras Bold ITC Regular.ttf" id="2_fxswb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4aus"]
+atlas = ExtResource("1_xiyv3")
+region = Rect2(0, 0, 1920, 1080)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gac8"]
+atlas = ExtResource("1_xiyv3")
+region = Rect2(0, 1080, 1920, 1080)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_veest"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4aus")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gac8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0tk4"]
+bg_color = Color(0.09411765, 0.26666668, 0.76862746, 1)
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.3019608, 0.7372549, 0.99215686, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uf0g3"]
+bg_color = Color(0.09411765, 0.26666668, 0.76862746, 1)
+border_width_left = 8
+border_width_top = 8
+border_color = Color(0.14509805, 0.08235294, 0.627451, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcoep"]
+bg_color = Color(0.16543114, 0.36026147, 0.8804419, 1)
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.3019608, 0.7372549, 0.99215686, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 16
+
+[node name="CreditScreen" type="Node2D" unique_id=303580288]
+script = ExtResource("1_fxswb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1529131242]
+sprite_frames = SubResource("SpriteFrames_veest")
+autoplay = "default"
+offset = Vector2(960, 540)
+
+[node name="Control" type="Control" parent="." unique_id=605865602]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1913.0
+offset_bottom = 1071.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=72630005]
+layout_mode = 0
+offset_right = 1918.0
+offset_bottom = 1085.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/HBoxContainer" unique_id=236849147]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.09411765, 0.26666668, 0.76862746, 1)
+theme_override_fonts/normal_font = ExtResource("2_fxswb")
+theme_override_font_sizes/normal_font_size = 42
+bbcode_enabled = true
+text = "
+
+
+
+Programer - 
+Artists -
+
+
+
+
+Sounds - "
+horizontal_alignment = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Control/HBoxContainer" unique_id=1404171918]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.09411765, 0.26666668, 0.76862746, 1)
+theme_override_fonts/normal_font = ExtResource("2_fxswb")
+theme_override_font_sizes/normal_font_size = 42
+bbcode_enabled = true
+text = "
+
+
+
+Théo Roncoletta
+Anjanette
+Richard Sägmüller
+Richard 
+V
+Leonora Kosel
+Dennis Shuljabin"
+
+[node name="Back" type="Button" parent="Control" unique_id=162533582]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -56.5
+offset_top = -191.0
+offset_right = 128.5
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_fxswb")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_q0tk4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_uf0g3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qcoep")
+text = "Back"
+
+[connection signal="pressed" from="Control/Back" to="." method="_on_back_pressed"]
